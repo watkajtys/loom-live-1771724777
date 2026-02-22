@@ -1,484 +1,1164 @@
+diff --git a/index.html b/index.html
+index 0d50b75..1f4a22f 100644
+--- a/index.html
++++ b/index.html
+@@ -4,14 +4,12 @@
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>Chronos: The Fractal Lore Mapper</title>
+-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
++    <title>AuraSpace Modular-Dark Workspace</title>
++    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+   </head>
+   <body>
+     <div id="root"></div>
+     <script type="module" src="/src/main.tsx"></script>
+   </body>
+-</html>
++</html>
+\ No newline at end of file
 diff --git a/src/App.tsx b/src/App.tsx
-index 956f9a9..1fc01b5 100644
+index 1fc01b5..1ea5298 100644
 --- a/src/App.tsx
 +++ b/src/App.tsx
-@@ -1,139 +1,215 @@
--// --- Components ---
-+function App() {
-+  return (
-+    <>
-+      <main className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#08080a]">
-+        {/* Background Grid */}
-+        <div 
-+          className="absolute inset-0 opacity-[0.08]" 
-+          style={{
-+            backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
-+            backgroundSize: '40px 40px'
-+          }}
-+        ></div>
- 
--const Header = () => (
--  <header className="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-6 flex justify-between items-center bg-gradient-to-b from-mono-bg/90 to-transparent pointer-events-none">
--    <div className="flex items-center gap-3 text-mono-text-secondary pointer-events-auto">
--      <span className="material-symbols-outlined text-sm opacity-70">menu_book</span>
--      <div className="flex items-center gap-2 text-xs tracking-widest uppercase font-medium">
--        <span className="opacity-50">Eldoria</span>
--        <span className="opacity-30">/</span>
--        <span className="opacity-50">Fractured Lands</span>
--        <span className="opacity-30">/</span>
--        <span className="text-white border-b border-white/20 pb-0.5">Whispering Woods</span>
--      </div>
--    </div>
--    <button className="w-8 h-8 flex items-center justify-center rounded-full border border-mono-border hover:bg-white/5 transition-colors text-mono-text-primary pointer-events-auto">
--      <span className="material-symbols-outlined text-sm">settings</span>
--    </button>
--  </header>
--);
-+        {/* Semantic Zoom Container */}
-+        <div className="absolute inset-0 transform -translate-x-[20%] transition-transform duration-700 ease-out">
-+          
-+          {/* Connection Layer */}
-+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-+            <path className="connector-line opacity-40" d="M380,450 C480,450 450,280 580,280" fill="none" stroke="#666"></path>
-+            <path className="drag-thread opacity-100" d="M1250,820 C1000,820 500,600 380,520" fill="none" stroke="#eab308" strokeLinecap="butt"></path>
-+            <rect className="animate-pulse" fill="#eab308" height="8" width="8" x="376" y="516"></rect>
-+          </svg>
- 
--const ConnectionLayer = () => (
--  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
--    <path className="connector-line" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#888"></path>
--    <path className="connector-line" d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#888" strokeOpacity="0.5"></path>
--    <rect fill="#1c1c1e" height="18" rx="4" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" width="90" x="185" y="383"></rect>
--    <text fill="#ccc" fontFamily="Inter" fontSize="9" letterSpacing="0.5" textAnchor="middle" x="230" y="396">CORRUPTION</text>
--  </svg>
--);
-+          {/* Node: Obsidian Spire */}
-+          <div className="absolute top-[480px] left-[200px] w-64 bg-[#111] border-2 border-[#444] p-0 shadow-none">
-+            <div className="h-8 bg-[#222] border-b-2 border-[#444] flex items-center justify-between px-2">
-+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#888]">LOC-01</span>
-+              <div className="w-2 h-2 bg-red-500 rounded-none"></div>
-+            </div>
-+            <div className="p-4">
-+              <h3 className="text-white font-bold text-lg leading-none mb-2 uppercase">Obsidian Spire</h3>
-+              <div className="h-20 w-full bg-[#000] border border-[#333] relative grayscale">
-+                <img 
-+                  alt="Dark gothic spire" 
-+                  className="w-full h-full object-cover opacity-60" 
-+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+                />
-+              </div>
-+            </div>
-+          </div>
- 
--const ObsidianSpireNode = () => (
--  <div className="absolute top-[220px] left-6 w-64 glass-panel rounded-sm p-5 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
--    <div className="active-node-glow opacity-0 group-hover:opacity-100 transition-opacity"></div>
--    <div className="flex items-start justify-between mb-4">
--      <div className="flex flex-col gap-1">
--        <span className="text-[10px] uppercase tracking-wider text-mono-text-secondary">Location</span>
--        <h3 className="text-white font-serif font-normal text-xl leading-tight italic">The Obsidian Spire</h3>
--      </div>
--      <span className="material-symbols-outlined text-mono-text-secondary text-base opacity-50">castle</span>
--    </div>
--    <div className="h-20 w-full bg-black/40 mb-4 overflow-hidden relative border border-white/5 grayscale hover:grayscale-0 transition-all duration-500">
--      <img
--        alt="Dark gothic spire silhouette against a purple night sky"
--        className="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity"
--        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
--      />
--    </div>
--    <div className="border-t border-white/10 pt-3 mt-1 flex justify-between items-center">
--      <span className="text-[10px] text-mono-text-secondary">Magical Focus Point</span>
--      <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
--    </div>
--  </div>
--);
-+          {/* Node: Active Node (Whispering Woods) */}
-+          <div className="absolute top-[200px] left-[580px] w-72 bg-[#111] border-2 border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] z-10">
-+            <div className="bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider border-b-2 border-white flex justify-between items-center">
-+              <span>Active Node</span>
-+              <span className="w-2 h-2 bg-black"></span>
-+            </div>
-+            <div className="h-32 w-full bg-[#000] border-b-2 border-white overflow-hidden relative">
-+              <img 
-+                alt="Mystical forest" 
-+                className="w-full h-full object-cover" 
-+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+              />
-+              <div className="absolute inset-0 bg-black/20"></div>
-+            </div>
-+            <div className="p-4 bg-[#111]">
-+              <h3 className="text-white font-black text-2xl mb-2 uppercase tracking-tight leading-none">Whispering<br/>Woods</h3>
-+              <p className="text-xs text-[#888] font-mono border-t border-[#333] pt-2 mt-2">ID: 8X-992 // SECTOR 4</p>
-+            </div>
-+          </div>
- 
--const WhisperingWoodsNode = () => (
--  <div className="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 glass-panel rounded-sm p-6 cursor-grab active:cursor-grabbing hover:border-white/40 transition-colors group z-20">
--    <div className="active-node-glow opacity-100"></div>
--    <div className="flex items-start justify-between mb-4">
--      <div className="flex flex-col gap-1">
--        <span className="text-[10px] uppercase tracking-wider text-mono-text-secondary">Territory</span>
--        <h3 className="text-white font-serif font-semibold text-2xl leading-tight">Whispering Woods</h3>
--      </div>
--      <div className="w-6 h-6 border border-white/20 flex items-center justify-center text-white/70 rounded-full">
--        <span className="material-symbols-outlined text-sm">forest</span>
--      </div>
--    </div>
--    <p className="text-sm font-serif italic text-mono-text-secondary mb-5 leading-relaxed border-l-2 border-white/20 pl-3">
--      "Home of the unseen fae. The trees themselves seem to shift when not observed directly."
--    </p>
--    <div className="flex items-center justify-between pt-2 border-t border-white/10">
--      <div className="flex -space-x-3 opacity-70 grayscale group-hover:grayscale-0 transition-all">
--        <div className="w-6 h-6 rounded-full bg-gray-600 border border-mono-bg"></div>
--        <div className="w-6 h-6 rounded-full bg-gray-500 border border-mono-bg"></div>
--        <div className="w-6 h-6 rounded-full bg-gray-800 border border-mono-bg flex items-center justify-center text-[8px] text-white">+3</div>
--      </div>
--      <button className="text-[10px] uppercase tracking-widest text-white hover:text-white/70 transition-colors border border-white/20 px-3 py-1 rounded-full hover:bg-white/5">
--        Inspect
--      </button>
--    </div>
--  </div>
--);
-+          {/* Node: Small Draft */}
-+          <div className="absolute top-[150px] left-[250px] w-40 border-2 border-[#333] bg-[#0a0a0a] p-2 opacity-50">
-+            <div className="h-2 w-full bg-[#222] mb-2"></div>
-+            <div className="h-12 w-full border border-[#222] bg-[#111]"></div>
-+          </div>
- 
--const SunkenGrottoNode = () => (
--  <div className="absolute top-[350px] left-[320px] w-48 glass-panel rounded-sm p-4 opacity-40 hover:opacity-100 transition-opacity scale-95 border-dashed border-white/20">
--    <div className="flex items-center justify-between mb-2">
--      <h4 className="text-slate-200 font-serif text-lg italic">Sunken Grotto</h4>
--      <span className="material-symbols-outlined text-xs text-mono-text-secondary">water_drop</span>
--    </div>
--    <div className="h-[1px] w-full bg-white/10 mt-2 mb-2">
--      <div className="h-full bg-white w-1/3"></div>
--    </div>
--    <p className="text-[9px] uppercase tracking-widest text-mono-text-secondary text-right">Draft</p>
--  </div>
--);
-+        </div>
-+      </main>
- 
--const FloatingControls = () => (
--  <div className="absolute bottom-10 right-8 z-50 flex flex-col items-end gap-4 group pointer-events-none">
--    <div className="flex flex-col gap-3 items-end transition-all duration-300 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto mb-2">
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Add Node">
--        <span className="material-symbols-outlined text-lg">add</span>
--      </button>
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Search">
--        <span className="material-symbols-outlined text-lg">search</span>
--      </button>
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Zoom">
--        <span className="material-symbols-outlined text-lg">center_focus_strong</span>
--      </button>
--    </div>
--    <button className="w-14 h-14 bg-white text-mono-bg rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-50 pointer-events-auto">
--      <span className="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">more_horiz</span>
--    </button>
--  </div>
--);
-+      {/* Sidebar (Codex) */}
-+      <aside className="absolute top-0 right-0 bottom-0 w-[600px] bg-[#111] z-50 flex flex-col border-l-2 border-[#333] shadow-none">
-+        
-+        {/* Header */}
-+        <header className="h-14 flex items-center justify-between px-6 border-b-2 border-[#333] bg-[#0a0a0a] shrink-0">
-+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wide">
-+            <span className="text-[#666]">ROOT</span>
-+            <span className="text-[#444]">/</span>
-+            <span className="text-[#888]">FRACTURED LANDS</span>
-+            <span className="text-[#444]">/</span>
-+            <span className="bg-white text-black px-1">WHISPERING WOODS</span>
-+          </div>
-+          <div className="flex gap-[-2px]"> 
-+            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-white hover:text-black transition-colors -ml-[2px]">
-+              <span className="material-symbols-outlined text-lg">more_horiz</span>
-+            </button>
-+            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-red-600 hover:text-white transition-colors -ml-[2px]">
-+              <span className="material-symbols-outlined text-lg">close</span>
-+            </button>
-+          </div>
-+        </header>
- 
--const Pagination = () => (
--  <div className="absolute bottom-0 w-full z-40 flex justify-center pb-4 pointer-events-none">
--    <div className="flex gap-1.5 pointer-events-auto glass-panel px-3 py-1.5 rounded-full border border-white/10">
--      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
--      <div className="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
--      <div className="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
--    </div>
--  </div>
--);
-+        {/* Relational Matrix */}
-+        <div className="border-b-2 border-[#333] bg-[#16161a] p-6 shrink-0">
-+          <div className="flex items-center justify-between mb-4">
-+            <h4 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
-+              <span className="w-3 h-3 bg-yellow-500 inline-block"></span>
-+              Relational Matrix
-+            </h4>
-+            <button className="text-[10px] font-bold bg-transparent hover:bg-white hover:text-black text-white border border-[#444] px-3 py-1 uppercase transition-colors">
-+              Expand Graph
-+            </button>
-+          </div>
-+          <div className="grid grid-cols-2 gap-3">
-+            <div className="flex items-center justify-between bg-[#0a0a0a] border border-[#333] p-3 group hover:border-white transition-colors cursor-pointer">
-+              <div className="flex items-center gap-3">
-+                <span className="material-symbols-outlined text-base text-[#666]">water_drop</span>
-+                <span className="text-sm font-bold text-[#ccc]">Sunken Grotto</span>
-+              </div>
-+              <span className="text-[10px] font-mono font-bold text-[#444] border border-[#333] px-1 bg-[#111] group-hover:bg-white group-hover:text-black">NEAR</span>
-+            </div>
-+            <div className="flex items-center justify-between bg-[#1a1a10] border border-yellow-500/50 p-3 relative overflow-hidden">
-+              <div className="flex items-center gap-3 z-10">
-+                <div className="w-2 h-2 bg-yellow-500 animate-pulse"></div>
-+                <span className="text-sm font-bold text-yellow-500 italic">Linking...</span>
-+              </div>
-+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-yellow-500 flex items-center justify-center">
-+                <span className="material-symbols-outlined text-sm text-black font-bold">link</span>
-+              </div>
-+            </div>
-+            <button className="col-span-2 flex items-center justify-center py-2 border border-dashed border-[#444] text-[#444] hover:text-white hover:border-white transition-colors text-xs font-bold uppercase tracking-widest">
-+              + Add Connection
-+            </button>
-+          </div>
-+        </div>
- 
--function App() {
--  return (
--    <div className="h-full w-full flex flex-col bg-mono-bg text-mono-text-primary font-sans overflow-hidden relative antialiased selection:bg-white selection:text-mono-bg">
--      <Header />
--      <main className="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
--        <ConnectionLayer />
--        <ObsidianSpireNode />
--        <WhisperingWoodsNode />
--        <SunkenGrottoNode />
+@@ -1,216 +1,28 @@
++import React from 'react';
++import { SoundProvider } from './context/SoundContext';
++import { TimerProvider } from './context/TimerContext';
++import { Header } from './components/Header';
++import { Sidebar } from './components/Sidebar';
++import { Mixer } from './components/Mixer';
++import { ControlBar } from './components/ControlBar';
++
+ function App() {
+   return (
+-    <>
+-      <main className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#08080a]">
+-        {/* Background Grid */}
+-        <div 
+-          className="absolute inset-0 opacity-[0.08]" 
+-          style={{
+-            backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
+-            backgroundSize: '40px 40px'
+-          }}
+-        ></div>
+-
+-        {/* Semantic Zoom Container */}
+-        <div className="absolute inset-0 transform -translate-x-[20%] transition-transform duration-700 ease-out">
+-          
+-          {/* Connection Layer */}
+-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
+-            <path className="connector-line opacity-40" d="M380,450 C480,450 450,280 580,280" fill="none" stroke="#666"></path>
+-            <path className="drag-thread opacity-100" d="M1250,820 C1000,820 500,600 380,520" fill="none" stroke="#eab308" strokeLinecap="butt"></path>
+-            <rect className="animate-pulse" fill="#eab308" height="8" width="8" x="376" y="516"></rect>
+-          </svg>
+-
+-          {/* Node: Obsidian Spire */}
+-          <div className="absolute top-[480px] left-[200px] w-64 bg-[#111] border-2 border-[#444] p-0 shadow-none">
+-            <div className="h-8 bg-[#222] border-b-2 border-[#444] flex items-center justify-between px-2">
+-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#888]">LOC-01</span>
+-              <div className="w-2 h-2 bg-red-500 rounded-none"></div>
+-            </div>
+-            <div className="p-4">
+-              <h3 className="text-white font-bold text-lg leading-none mb-2 uppercase">Obsidian Spire</h3>
+-              <div className="h-20 w-full bg-[#000] border border-[#333] relative grayscale">
+-                <img 
+-                  alt="Dark gothic spire" 
+-                  className="w-full h-full object-cover opacity-60" 
+-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-                />
+-              </div>
+-            </div>
+-          </div>
+-
+-          {/* Node: Active Node (Whispering Woods) */}
+-          <div className="absolute top-[200px] left-[580px] w-72 bg-[#111] border-2 border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] z-10">
+-            <div className="bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider border-b-2 border-white flex justify-between items-center">
+-              <span>Active Node</span>
+-              <span className="w-2 h-2 bg-black"></span>
+-            </div>
+-            <div className="h-32 w-full bg-[#000] border-b-2 border-white overflow-hidden relative">
+-              <img 
+-                alt="Mystical forest" 
+-                className="w-full h-full object-cover" 
+-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-              />
+-              <div className="absolute inset-0 bg-black/20"></div>
++    <SoundProvider>
++      <TimerProvider>
++        <div className="bg-obsidian text-slate-300 font-display min-h-screen overflow-hidden flex flex-col topo-bg">
++          <Header />
++          <main className="flex-1 grid grid-cols-1 lg:grid-cols-[360px_1fr] h-screen pt-16 overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-grid-border">
++            <Sidebar />
++            <div className="relative h-full overflow-hidden">
++                <Mixer />
++                <ControlBar />
+             </div>
+-            <div className="p-4 bg-[#111]">
+-              <h3 className="text-white font-black text-2xl mb-2 uppercase tracking-tight leading-none">Whispering<br/>Woods</h3>
+-              <p className="text-xs text-[#888] font-mono border-t border-[#333] pt-2 mt-2">ID: 8X-992 // SECTOR 4</p>
+-            </div>
+-          </div>
+-
+-          {/* Node: Small Draft */}
+-          <div className="absolute top-[150px] left-[250px] w-40 border-2 border-[#333] bg-[#0a0a0a] p-2 opacity-50">
+-            <div className="h-2 w-full bg-[#222] mb-2"></div>
+-            <div className="h-12 w-full border border-[#222] bg-[#111]"></div>
+-          </div>
+-
+-        </div>
 -      </main>
--      <FloatingControls />
--      <Pagination />
--    </div>
-+        {/* Scrollable Content */}
-+        <div className="flex-1 overflow-y-auto overflow-x-hidden relative no-scrollbar bg-[#0a0a0a]">
-+          <div className="h-48 w-full relative border-b-2 border-[#333]">
-+            <img 
-+              className="w-full h-full object-cover opacity-40 grayscale contrast-125" 
-+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+              alt="Whispering Woods Detail"
-+            />
-+            <div className="absolute inset-0 bg-[#0a0a0a] mix-blend-multiply"></div>
-+            <div className="absolute bottom-0 left-0 bg-black text-white px-4 py-1 text-xs font-mono border-t border-r border-[#333]">IMG_REF_992</div>
-+            <button className="absolute top-4 right-4 bg-black border border-white text-white px-3 py-1 text-xs font-bold hover:bg-white hover:text-black transition-colors uppercase">
-+              Replace
-+            </button>
-+          </div>
-+
-+          <div className="p-8 pb-32">
-+            <div className="flex items-start gap-4 mb-8">
-+              <div className="w-16 h-16 bg-[#111] border-2 border-[#333] flex items-center justify-center shrink-0">
-+                <span className="material-symbols-outlined text-3xl text-white">forest</span>
-+              </div>
-+              <div>
-+                <h1 className="font-black text-5xl text-white leading-[0.9] uppercase tracking-tighter mb-2">Whispering<br/>Woods</h1>
-+                <div className="text-[#666] font-mono text-xs">LAST EDITED: TODAY 14:02</div>
-+              </div>
-+            </div>
-+
-+            <div className="grid grid-cols-3 gap-px bg-[#333] border-2 border-[#333] mb-10">
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Type</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="material-symbols-outlined text-xs">terrain</span>
-+                  Territory
-+                </div>
-+              </div>
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Status</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="w-2 h-2 bg-green-500"></span>
-+                  Active
-+                </div>
-+              </div>
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Owner</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="text-indigo-400 font-black">GM</span>
-+                  System
-+                </div>
-+              </div>
-+            </div>
-+
-+            <div className="tiptap-editor outline-none max-w-none">
-+              <p>The Whispering Woods is not merely a forest, but a sentient organism of vast proportions. Travelers report that the trees themselves seem to shift positions when not directly observed, creating a labyrinth that defies traditional cartography.</p>
-+              <blockquote>
-+                "The leaves don't rustle with the wind; they rustle with intent. Watch your periphery, for that is where the Unseen Fae dwell."
-+                <footer className="mt-2 text-sm text-[#666] not-italic font-mono uppercase">— Elder Kaelen's Journal, Entry 402</footer>
-+              </blockquote>
-+              <h2>Flora &amp; Fauna</h2>
-+              <p>Notable species include the <span className="bg-emerald-900/30 text-emerald-400 border-b border-emerald-500 font-medium px-1">Silver-Barked Oak</span> and the luminous <span className="bg-purple-900/30 text-purple-400 border-b border-purple-500 font-medium px-1">Ghost Ferns</span>, which glow faintly in the presence of latent magic.</p>
-+              <p>Recent scouting expeditions have uncovered ruins near the northern edge, suggesting a civilization pre-dating the Age of Dust.</p>
-+              <div className="my-8 border-l-4 border-yellow-600 bg-[#161610] p-4 flex gap-4">
-+                <span className="material-symbols-outlined text-yellow-600">lightbulb</span>
-+                <div className="text-sm text-[#ccc]">
-+                  <strong className="text-yellow-600 uppercase block text-xs tracking-wider mb-1">GM Note</strong>
-+                  Players with Perception &gt; 15 may notice the subtle hum of the leylines converging here.
-+                </div>
-+              </div>
-+            </div>
-+          </div>
-+        </div>
-+
-+        {/* Footer */}
-+        <div className="bg-[#0a0a0a] border-t-2 border-[#333] p-4 flex justify-between items-center shrink-0">
-+          <div className="text-[10px] font-mono text-[#444] uppercase">
-+            v3.0.2 // BRUTAL_MOD
-+          </div>
-+          <div className="flex gap-2">
-+            <button className="bg-[#111] border border-[#333] text-[#888] px-3 py-1.5 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors">
-+              Discard
-+            </button>
-+            <button className="bg-white text-black border border-white px-3 py-1.5 text-xs font-bold uppercase hover:bg-[#ccc] transition-colors">
-+              Save Changes
-+            </button>
-+          </div>
-+        </div>
-+      </aside>
-+    </>
+-
+-      {/* Sidebar (Codex) */}
+-      <aside className="absolute top-0 right-0 bottom-0 w-[600px] bg-[#111] z-50 flex flex-col border-l-2 border-[#333] shadow-none">
+-        
+-        {/* Header */}
+-        <header className="h-14 flex items-center justify-between px-6 border-b-2 border-[#333] bg-[#0a0a0a] shrink-0">
+-          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wide">
+-            <span className="text-[#666]">ROOT</span>
+-            <span className="text-[#444]">/</span>
+-            <span className="text-[#888]">FRACTURED LANDS</span>
+-            <span className="text-[#444]">/</span>
+-            <span className="bg-white text-black px-1">WHISPERING WOODS</span>
+-          </div>
+-          <div className="flex gap-[-2px]"> 
+-            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-white hover:text-black transition-colors -ml-[2px]">
+-              <span className="material-symbols-outlined text-lg">more_horiz</span>
+-            </button>
+-            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-red-600 hover:text-white transition-colors -ml-[2px]">
+-              <span className="material-symbols-outlined text-lg">close</span>
+-            </button>
+-          </div>
+-        </header>
+-
+-        {/* Relational Matrix */}
+-        <div className="border-b-2 border-[#333] bg-[#16161a] p-6 shrink-0">
+-          <div className="flex items-center justify-between mb-4">
+-            <h4 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
+-              <span className="w-3 h-3 bg-yellow-500 inline-block"></span>
+-              Relational Matrix
+-            </h4>
+-            <button className="text-[10px] font-bold bg-transparent hover:bg-white hover:text-black text-white border border-[#444] px-3 py-1 uppercase transition-colors">
+-              Expand Graph
+-            </button>
+-          </div>
+-          <div className="grid grid-cols-2 gap-3">
+-            <div className="flex items-center justify-between bg-[#0a0a0a] border border-[#333] p-3 group hover:border-white transition-colors cursor-pointer">
+-              <div className="flex items-center gap-3">
+-                <span className="material-symbols-outlined text-base text-[#666]">water_drop</span>
+-                <span className="text-sm font-bold text-[#ccc]">Sunken Grotto</span>
+-              </div>
+-              <span className="text-[10px] font-mono font-bold text-[#444] border border-[#333] px-1 bg-[#111] group-hover:bg-white group-hover:text-black">NEAR</span>
+-            </div>
+-            <div className="flex items-center justify-between bg-[#1a1a10] border border-yellow-500/50 p-3 relative overflow-hidden">
+-              <div className="flex items-center gap-3 z-10">
+-                <div className="w-2 h-2 bg-yellow-500 animate-pulse"></div>
+-                <span className="text-sm font-bold text-yellow-500 italic">Linking...</span>
+-              </div>
+-              <div className="absolute right-0 top-0 bottom-0 w-8 bg-yellow-500 flex items-center justify-center">
+-                <span className="material-symbols-outlined text-sm text-black font-bold">link</span>
+-              </div>
+-            </div>
+-            <button className="col-span-2 flex items-center justify-center py-2 border border-dashed border-[#444] text-[#444] hover:text-white hover:border-white transition-colors text-xs font-bold uppercase tracking-widest">
+-              + Add Connection
+-            </button>
+-          </div>
+-        </div>
+-
+-        {/* Scrollable Content */}
+-        <div className="flex-1 overflow-y-auto overflow-x-hidden relative no-scrollbar bg-[#0a0a0a]">
+-          <div className="h-48 w-full relative border-b-2 border-[#333]">
+-            <img 
+-              className="w-full h-full object-cover opacity-40 grayscale contrast-125" 
+-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-              alt="Whispering Woods Detail"
+-            />
+-            <div className="absolute inset-0 bg-[#0a0a0a] mix-blend-multiply"></div>
+-            <div className="absolute bottom-0 left-0 bg-black text-white px-4 py-1 text-xs font-mono border-t border-r border-[#333]">IMG_REF_992</div>
+-            <button className="absolute top-4 right-4 bg-black border border-white text-white px-3 py-1 text-xs font-bold hover:bg-white hover:text-black transition-colors uppercase">
+-              Replace
+-            </button>
+-          </div>
+-
+-          <div className="p-8 pb-32">
+-            <div className="flex items-start gap-4 mb-8">
+-              <div className="w-16 h-16 bg-[#111] border-2 border-[#333] flex items-center justify-center shrink-0">
+-                <span className="material-symbols-outlined text-3xl text-white">forest</span>
+-              </div>
+-              <div>
+-                <h1 className="font-black text-5xl text-white leading-[0.9] uppercase tracking-tighter mb-2">Whispering<br/>Woods</h1>
+-                <div className="text-[#666] font-mono text-xs">LAST EDITED: TODAY 14:02</div>
+-              </div>
+-            </div>
+-
+-            <div className="grid grid-cols-3 gap-px bg-[#333] border-2 border-[#333] mb-10">
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Type</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="material-symbols-outlined text-xs">terrain</span>
+-                  Territory
+-                </div>
+-              </div>
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Status</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="w-2 h-2 bg-green-500"></span>
+-                  Active
+-                </div>
+-              </div>
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Owner</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="text-indigo-400 font-black">GM</span>
+-                  System
+-                </div>
+-              </div>
+-            </div>
+-
+-            <div className="tiptap-editor outline-none max-w-none">
+-              <p>The Whispering Woods is not merely a forest, but a sentient organism of vast proportions. Travelers report that the trees themselves seem to shift positions when not directly observed, creating a labyrinth that defies traditional cartography.</p>
+-              <blockquote>
+-                "The leaves don't rustle with the wind; they rustle with intent. Watch your periphery, for that is where the Unseen Fae dwell."
+-                <footer className="mt-2 text-sm text-[#666] not-italic font-mono uppercase">— Elder Kaelen's Journal, Entry 402</footer>
+-              </blockquote>
+-              <h2>Flora &amp; Fauna</h2>
+-              <p>Notable species include the <span className="bg-emerald-900/30 text-emerald-400 border-b border-emerald-500 font-medium px-1">Silver-Barked Oak</span> and the luminous <span className="bg-purple-900/30 text-purple-400 border-b border-purple-500 font-medium px-1">Ghost Ferns</span>, which glow faintly in the presence of latent magic.</p>
+-              <p>Recent scouting expeditions have uncovered ruins near the northern edge, suggesting a civilization pre-dating the Age of Dust.</p>
+-              <div className="my-8 border-l-4 border-yellow-600 bg-[#161610] p-4 flex gap-4">
+-                <span className="material-symbols-outlined text-yellow-600">lightbulb</span>
+-                <div className="text-sm text-[#ccc]">
+-                  <strong className="text-yellow-600 uppercase block text-xs tracking-wider mb-1">GM Note</strong>
+-                  Players with Perception &gt; 15 may notice the subtle hum of the leylines converging here.
+-                </div>
+-              </div>
+-            </div>
+-          </div>
+-        </div>
+-
+-        {/* Footer */}
+-        <div className="bg-[#0a0a0a] border-t-2 border-[#333] p-4 flex justify-between items-center shrink-0">
+-          <div className="text-[10px] font-mono text-[#444] uppercase">
+-            v3.0.2 // BRUTAL_MOD
+-          </div>
+-          <div className="flex gap-2">
+-            <button className="bg-[#111] border border-[#333] text-[#888] px-3 py-1.5 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors">
+-              Discard
+-            </button>
+-            <button className="bg-white text-black border border-white px-3 py-1.5 text-xs font-bold uppercase hover:bg-[#ccc] transition-colors">
+-              Save Changes
+-            </button>
+-          </div>
++          </main>
+         </div>
+-      </aside>
+-    </>
++      </TimerProvider>
++    </SoundProvider>
    );
  }
  
+-export default App;
++export default App;
+\ No newline at end of file
+diff --git a/src/components/ControlBar.tsx b/src/components/ControlBar.tsx
+new file mode 100644
+index 0000000..860e925
+--- /dev/null
++++ b/src/components/ControlBar.tsx
+@@ -0,0 +1,58 @@
++import React from 'react';
++import { useSound } from '../context/SoundContext';
++
++export const ControlBar = () => {
++    const { isPlaying, togglePlay, masterVolume, setMasterVolume } = useSound();
++
++    return (
++        <div className="absolute bottom-0 w-full bg-obsidian-light/90 border-t border-grid-border h-20 px-8 flex items-center justify-between z-20 backdrop-blur-md">
++            <div className="flex items-center gap-6">
++                <button className="size-10 rounded-sm hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer">
++                    <span className="material-symbols-outlined">skip_previous</span>
++                </button>
++                <button 
++                    onClick={togglePlay}
++                    className="size-12 bg-amber-accent text-obsidian flex items-center justify-center hover:bg-amber-400 transition-colors shadow-[0_0_20px_rgba(245,158,11,0.2)] cursor-pointer rounded-sm"
++                >
++                    <span className="material-symbols-outlined text-[28px] fill-current">
++                        {isPlaying ? 'pause' : 'play_arrow'}
++                    </span>
++                </button>
++                <button className="size-10 rounded-sm hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer">
++                    <span className="material-symbols-outlined">skip_next</span>
++                </button>
++            </div>
++            
++            <div className="flex items-center gap-4 w-64 bg-obsidian px-4 py-3 border border-grid-border">
++                <button 
++                    onClick={() => setMasterVolume(masterVolume === 0 ? 0.75 : 0)}
++                    className="text-slate-400 hover:text-white cursor-pointer"
++                >
++                    <span className="material-symbols-outlined text-[20px]">
++                        {masterVolume === 0 ? 'volume_off' : 'volume_up'}
++                    </span>
++                </button>
++                
++                <div className="flex-1 relative h-2 bg-slate-800 group">
++                    <div 
++                        className="absolute top-0 left-0 h-full bg-amber-accent pointer-events-none transition-[width] duration-150" 
++                        style={{ width: `${masterVolume * 100}%` }}
++                    ></div>
++                    <input 
++                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
++                        type="range" 
++                        min="0" 
++                        max="100" 
++                        step="1"
++                        value={masterVolume * 100}
++                        onChange={(e) => setMasterVolume(Number(e.target.value) / 100)}
++                    />
++                </div>
++                
++                <span className="text-xs font-mono text-amber-accent w-8 text-right select-none">
++                    {Math.round(masterVolume * 100)}%
++                </span>
++            </div>
++        </div>
++    );
++};
+\ No newline at end of file
+diff --git a/src/components/Header.tsx b/src/components/Header.tsx
+new file mode 100644
+index 0000000..bf40010
+--- /dev/null
++++ b/src/components/Header.tsx
+@@ -0,0 +1,31 @@
++import React from 'react';
++
++export const Header = () => {
++  return (
++    <header className="h-16 border-b border-grid-border flex items-center justify-between px-6 bg-obsidian-light/50 backdrop-blur-sm z-50 fixed top-0 w-full">
++        <div className="flex items-center gap-4">
++            <div className="size-8 bg-amber-accent/10 border border-amber-accent flex items-center justify-center">
++                <span className="material-symbols-outlined text-amber-accent text-[20px]">graphic_eq</span>
++            </div>
++            <div className="flex flex-col">
++                <h1 className="text-white font-bold tracking-tight text-lg leading-none">AuraSpace</h1>
++                <span className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Modular OS v3.0</span>
++            </div>
++        </div>
++        <div className="flex items-center gap-6">
++            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-obsidian-lighter border border-grid-border rounded-sm">
++                <span className="size-2 rounded-full bg-green-500 animate-pulse"></span>
++                <span className="text-xs font-mono text-slate-400">SYS.ONLINE</span>
++            </div>
++            <div className="flex gap-2">
++                <button className="size-9 hover:bg-white/5 border border-transparent hover:border-grid-border flex items-center justify-center transition-all text-slate-400 hover:text-white cursor-pointer rounded-sm">
++                    <span className="material-symbols-outlined text-[20px]">account_circle</span>
++                </button>
++                <button className="size-9 hover:bg-white/5 border border-transparent hover:border-grid-border flex items-center justify-center transition-all text-slate-400 hover:text-white cursor-pointer rounded-sm">
++                    <span className="material-symbols-outlined text-[20px]">settings</span>
++                </button>
++            </div>
++        </div>
++    </header>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/Mixer.tsx b/src/components/Mixer.tsx
+new file mode 100644
+index 0000000..a252993
+--- /dev/null
++++ b/src/components/Mixer.tsx
+@@ -0,0 +1,106 @@
++import React, { useRef, useState, useEffect } from 'react';
++import { useSound } from '../context/SoundContext';
++import { SoundNode } from './SoundNode';
++
++export const Mixer = () => {
++    const { nodes, updateNodePosition } = useSound();
++    const mixerRef = useRef<HTMLDivElement>(null);
++    const [draggingId, setDraggingId] = useState<string | null>(null);
++
++    const handleMouseDown = (e: React.MouseEvent, id: string) => {
++        e.preventDefault();
++        setDraggingId(id);
++    };
++
++    const handleMouseMove = (e: MouseEvent) => {
++        if (draggingId && mixerRef.current) {
++            const rect = mixerRef.current.getBoundingClientRect();
++            const x = ((e.clientX - rect.left) / rect.width) * 100;
++            const y = ((e.clientY - rect.top) / rect.height) * 100;
++            
++            // Clamp to 0-100
++            const clampedX = Math.max(0, Math.min(100, x));
++            const clampedY = Math.max(0, Math.min(100, y));
++
++            updateNodePosition(draggingId, clampedX, clampedY);
++        }
++    };
++
++    const handleMouseUp = () => {
++        setDraggingId(null);
++    };
++
++    useEffect(() => {
++        if (draggingId) {
++            window.addEventListener('mousemove', handleMouseMove);
++            window.addEventListener('mouseup', handleMouseUp);
++        }
++
++        return () => {
++            window.removeEventListener('mousemove', handleMouseMove);
++            window.removeEventListener('mouseup', handleMouseUp);
++        };
++    }, [draggingId]);
++
++    return (
++        <section className="relative bg-obsidian flex flex-col h-full overflow-hidden">
++            {/* Header Overlay */}
++            <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start pointer-events-none z-10">
++                <div>
++                    <h2 className="text-2xl font-bold text-white mb-1">Soundscape Mixer</h2>
++                    <div className="flex items-center gap-2 text-amber-accent/80">
++                        <span className="material-symbols-outlined text-[16px]">waves</span>
++                        <span className="text-xs uppercase tracking-wider font-mono">Audio Engine: Active</span>
++                    </div>
++                </div>
++                <div className="pointer-events-auto bg-obsidian-light border border-grid-border flex items-center gap-4 px-4 py-2 hover:border-slate-500 transition-colors cursor-pointer">
++                    <div className="flex flex-col items-end">
++                        <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Preset</span>
++                        <span className="text-white text-sm font-medium">Deep Flow</span>
++                    </div>
++                    <span className="material-symbols-outlined text-slate-400">expand_more</span>
++                </div>
++            </div>
++
++            {/* Main Interaction Area */}
++            <div ref={mixerRef} className="absolute inset-0 z-0 overflow-hidden cursor-crosshair">
++                {/* Grid Background */}
++                <div className="absolute inset-0" style={{
++                    backgroundImage: `linear-gradient(#1f1f23 1px, transparent 1px), 
++                                      linear-gradient(90deg, #1f1f23 1px, transparent 1px)`,
++                    backgroundSize: '40px 40px',
++                    opacity: 0.5
++                }}></div>
++
++                {/* Central Listener Visualization */}
++                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
++                     {/* Dashed outer boundary */}
++                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] border border-dashed border-grid-border rounded-full opacity-30"></div>
++                    {/* Inner boundary */}
++                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] border border-grid-border rounded-full opacity-50"></div>
++                    {/* Core boundary */}
++                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[200px] border border-amber-accent/20 rounded-full"></div>
++                    
++                    {/* Headphone Icon */}
++                    <div className="relative z-10 size-16 bg-obsidian border-2 border-amber-accent flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.2)] rounded-full">
++                        <span className="material-symbols-outlined text-white text-3xl">headphones</span>
++                    </div>
++
++                    {/* Radar Sweep Animation */}
++                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] rounded-full overflow-hidden opacity-10 pointer-events-none">
++                         <div className="w-1/2 h-1/2 bg-gradient-to-br from-transparent to-amber-accent absolute top-0 left-0 origin-bottom-right animate-[spin_4s_linear_infinite]"></div>
++                    </div>
++                </div>
++
++                {/* Nodes */}
++                {nodes.map(node => (
++                    <SoundNode 
++                        key={node.id} 
++                        node={node} 
++                        onMouseDown={handleMouseDown} 
++                    />
++                ))}
++            </div>
++        </section>
++    );
++};
+\ No newline at end of file
+diff --git a/src/components/Sidebar.tsx b/src/components/Sidebar.tsx
+new file mode 100644
+index 0000000..3ad28d7
+--- /dev/null
++++ b/src/components/Sidebar.tsx
+@@ -0,0 +1,12 @@
++import React from 'react';
++import { Timer } from './Timer';
++import { TaskList } from './TaskList';
++
++export const Sidebar = () => {
++  return (
++    <aside className="flex flex-col h-full bg-obsidian-light divide-y divide-grid-border overflow-hidden border-r border-grid-border z-30 relative w-full lg:w-[360px]">
++        <Timer />
++        <TaskList />
++    </aside>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/SoundNode.tsx b/src/components/SoundNode.tsx
+new file mode 100644
+index 0000000..54d4a8f
+--- /dev/null
++++ b/src/components/SoundNode.tsx
+@@ -0,0 +1,115 @@
++import React from 'react';
++import type { SoundNode as SoundNodeType } from '../context/SoundContext';
++
++interface SoundNodeProps {
++  node: SoundNodeType;
++  onMouseDown: (e: React.MouseEvent, id: string) => void;
++}
++
++// Safelist for dynamic classes used below
++// bg-blue-500 bg-emerald-500 bg-amber-500 bg-slate-400
++// border-blue-500/30 border-emerald-500/30 border-amber-500/30 border-slate-400/30
++// bg-blue-500/5 bg-emerald-500/5 bg-amber-500/5 bg-slate-400/5
++// hover:bg-blue-500/10 hover:bg-emerald-500/10 hover:bg-amber-500/10 hover:bg-slate-400/10
++// text-blue-400 text-emerald-400 text-amber-400 text-slate-400
++// text-blue-400/70 text-emerald-400/70 text-amber-400/70 text-slate-400/70
++
++export const SoundNode: React.FC<SoundNodeProps> = ({ node, onMouseDown }) => {
++  // Volume is 0-1.
++  const scale = 1 + node.volume * 0.5;
++  const baseColorName = node.color.split('-')[0]; // e.g. "blue" from "blue-500"
++
++  // We need to construct class names. To be safe, we rely on the safelist comment above or explicit map.
++  // Assuming standard tailwind palette, we can try to construct them.
++  // Tailwind 4 compiles on demand, but it needs to see the full string.
++  // Interpolation `bg-${color}` usually doesn't work.
++  // So I'll use inline styles for the color-specific parts where possible, or map them.
++  
++  const colorMap: {[key: string]: {
++    bg: string;
++    border: string;
++    bgSoft: string;
++    bgHover: string;
++    text: string;
++    textSoft: string;
++  }} = {
++    'blue-500': {
++        bg: 'bg-blue-500',
++        border: 'border-blue-500/30',
++        bgSoft: 'bg-blue-500/5',
++        bgHover: 'group-hover:bg-blue-500/10',
++        text: 'text-blue-400',
++        textSoft: 'text-blue-400/70'
++    },
++    'emerald-500': {
++        bg: 'bg-emerald-500',
++        border: 'border-emerald-500/30',
++        bgSoft: 'bg-emerald-500/5',
++        bgHover: 'group-hover:bg-emerald-500/10',
++        text: 'text-emerald-400',
++        textSoft: 'text-emerald-400/70'
++    },
++    'amber-500': {
++        bg: 'bg-amber-500',
++        border: 'border-amber-500/30',
++        bgSoft: 'bg-amber-500/5',
++        bgHover: 'group-hover:bg-amber-500/10',
++        text: 'text-amber-400',
++        textSoft: 'text-amber-400/70'
++    },
++    'slate-400': {
++        bg: 'bg-slate-400',
++        border: 'border-slate-400/30',
++        bgSoft: 'bg-slate-400/5',
++        bgHover: 'group-hover:bg-slate-400/10',
++        text: 'text-slate-300',
++        textSoft: 'text-slate-400/70'
++    }
++  };
++
++  const colors = colorMap[node.color] || colorMap['slate-400'];
++
++  return (
++    <div 
++        className="absolute group cursor-grab active:cursor-grabbing"
++        style={{ 
++            top: `${node.y}%`, 
++            left: `${node.x}%`,
++            transform: 'translate(-50%, -50%)',
++            zIndex: 30 
++        }}
++        onMouseDown={(e) => onMouseDown(e, node.id)}
++    >
++        <div className="relative flex flex-col items-center">
++            {/* Core Orb */}
++            <div 
++                className={`size-3 rounded-full z-20 transition-transform duration-75 ${colors.bg}`}
++                style={{ 
++                    transform: `scale(${scale})`,
++                    boxShadow: `0 0 ${10 + node.volume * 20}px currentColor`
++                }}
++            ></div>
++            
++            {/* Outer Ring */}
++            <div 
++                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border rounded-full transition-all duration-300 pointer-events-none ${colors.border} ${colors.bgSoft} ${colors.bgHover}`}
++                style={{
++                    width: `${3 + node.volume * 4}rem`, 
++                    height: `${3 + node.volume * 4}rem`,
++                }}
++            ></div>
++
++            {/* Tooltip/Label */}
++            <div className="absolute -top-8 bg-obsidian border border-grid-border px-2 py-1 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-30 pointer-events-none">
++                <span className={`${colors.text}`}>
++                    VOL: {Math.round(node.volume * 100)}%
++                </span>
++            </div>
++            
++            <span className={`absolute top-8 text-[10px] uppercase tracking-widest font-bold mt-1 pointer-events-none ${colors.textSoft}`}>
++                {node.label}
++            </span>
++        </div>
++    </div>
++  );
++};
+\ No newline at end of file
+diff --git a/src/components/TaskList.tsx b/src/components/TaskList.tsx
+new file mode 100644
+index 0000000..dda2af4
+--- /dev/null
++++ b/src/components/TaskList.tsx
+@@ -0,0 +1,48 @@
++import React from 'react';
++
++export const TaskList = () => {
++    return (
++        <div className="flex-[0.6] p-0 flex flex-col overflow-hidden bg-obsidian">
++            <div className="p-6 border-b border-grid-border flex items-center justify-between bg-obsidian-light/50">
++                <h3 className="text-xs uppercase tracking-widest text-slate-500 font-bold">Active Tasks</h3>
++                <button className="text-amber-accent hover:text-amber-300 cursor-pointer">
++                    <span className="material-symbols-outlined text-[18px]">add</span>
++                </button>
++            </div>
++            <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-3">
++                <div className="p-4 border-l-2 border-amber-accent bg-obsidian-light/30 hover:bg-obsidian-light/50 transition-colors cursor-pointer group">
++                    <div className="flex justify-between items-start mb-1">
++                        <span className="text-white text-sm font-medium">Finalize spatial audio logic</span>
++                        <span className="text-[10px] text-amber-accent font-mono border border-amber-accent/30 px-1.5 py-0.5">DEV</span>
++                    </div>
++                    <p className="text-xs text-slate-500 line-clamp-2">Implement 3D panning for cafe ambience node based on radial distance.</p>
++                </div>
++                <div className="p-4 border-l-2 border-grid-border hover:border-slate-500 bg-obsidian-lighter/10 hover:bg-obsidian-light/30 transition-colors cursor-pointer">
++                    <div className="flex justify-between items-start mb-1">
++                        <span className="text-slate-300 text-sm">Update user documentation</span>
++                        <span className="text-[10px] text-slate-600 font-mono border border-slate-700 px-1.5 py-0.5">DOCS</span>
++                    </div>
++                </div>
++                <div className="p-4 border-l-2 border-grid-border hover:border-slate-500 bg-obsidian-lighter/10 hover:bg-obsidian-light/30 transition-colors cursor-pointer">
++                    <div className="flex justify-between items-start mb-1">
++                        <span className="text-slate-300 text-sm">Review Q3 design mockups</span>
++                        <span className="text-[10px] text-slate-600 font-mono border border-slate-700 px-1.5 py-0.5">DSGN</span>
++                    </div>
++                </div>
++                <div className="p-4 border-l-2 border-transparent opacity-40 hover:opacity-60 transition-opacity">
++                    <div className="flex justify-between items-start mb-1">
++                        <span className="text-slate-400 text-sm line-through">Email client timeline</span>
++                        <span className="material-symbols-outlined text-green-500 text-[14px]">check</span>
++                    </div>
++                </div>
++            </div>
++            <div className="p-4 border-t border-grid-border bg-obsidian-light">
++                <input 
++                    className="w-full bg-obsidian border border-grid-border text-sm text-white px-3 py-2 focus:ring-1 focus:ring-amber-accent focus:border-amber-accent placeholder-slate-600 outline-none" 
++                    placeholder="Add new task..." 
++                    type="text"
++                />
++            </div>
++        </div>
++    );
++};
+\ No newline at end of file
+diff --git a/src/components/Timer.tsx b/src/components/Timer.tsx
+new file mode 100644
+index 0000000..9c0f9cd
+--- /dev/null
++++ b/src/components/Timer.tsx
+@@ -0,0 +1,47 @@
++import React from 'react';
++import { useTimer } from '../context/TimerContext';
++
++export const Timer = () => {
++    const { timeLeft, isActive, startTimer, pauseTimer, resetTimer, sessionCount, efficiency } = useTimer();
++
++    const formatTime = (seconds: number) => {
++        const m = Math.floor(seconds / 60);
++        const s = seconds % 60;
++        return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
++    };
++
++    return (
++        <div className="flex-[0.4] min-h-[300px] p-6 flex flex-col relative group">
++            <div className="absolute top-4 right-4 opacity-50">
++                <span className="material-symbols-outlined text-grid-border">schedule</span>
++            </div>
++            <h3 className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-6">Focus Timer</h3>
++            <div className="flex-1 flex flex-col items-center justify-center">
++                <div className="text-7xl font-bold text-white font-mono tracking-tighter mb-2">
++                    {formatTime(timeLeft)}
++                </div>
++                <div className="text-amber-accent/80 text-sm uppercase tracking-[0.2em] mb-8">
++                    {isActive ? 'Focus Active' : 'Focus Cycle'}
++                </div>
++                <div className="flex items-center gap-4 w-full px-8">
++                    <button 
++                        onClick={resetTimer}
++                        className="flex-1 h-12 border border-grid-border hover:border-amber-accent hover:bg-amber-accent/5 text-slate-400 hover:text-white transition-all flex items-center justify-center uppercase text-xs font-bold tracking-wider cursor-pointer"
++                    >
++                        Reset
++                    </button>
++                    <button 
++                        onClick={isActive ? pauseTimer : startTimer}
++                        className="flex-1 h-12 bg-amber-accent text-obsidian hover:bg-amber-400 transition-all flex items-center justify-center uppercase text-xs font-bold tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.3)] cursor-pointer"
++                    >
++                        {isActive ? 'Pause' : 'Start'}
++                    </button>
++                </div>
++            </div>
++            <div className="mt-auto pt-4 border-t border-dashed border-grid-border flex justify-between text-xs text-slate-500 font-mono">
++                <span>SESSION: {sessionCount}/8</span>
++                <span>EFFICIENCY: {efficiency}%</span>
++            </div>
++        </div>
++    );
++};
+\ No newline at end of file
+diff --git a/src/context/SoundContext.tsx b/src/context/SoundContext.tsx
+new file mode 100644
+index 0000000..d77f52b
+--- /dev/null
++++ b/src/context/SoundContext.tsx
+@@ -0,0 +1,165 @@
++import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
++
++// Define the shape of a sound node
++export interface SoundNode {
++  id: string;
++  label: string;
++  x: number; // percentage (0-100)
++  y: number; // percentage (0-100)
++  volume: number; // 0-1
++  color: string; // Tailwind color class suffix (e.g. "blue-500")
++  src: string; // Audio source URL
++}
++
++// Define the context state
++interface SoundContextType {
++  nodes: SoundNode[];
++  isPlaying: boolean;
++  togglePlay: () => void;
++  updateNodePosition: (id: string, x: number, y: number) => void;
++  masterVolume: number;
++  setMasterVolume: (volume: number) => void;
++}
++
++const SoundContext = createContext<SoundContextType | undefined>(undefined);
++
++const calculateVolume = (x: number, y: number) => {
++  // Center is (50, 50)
++  const dx = x - 50;
++  const dy = y - 50;
++  const distance = Math.sqrt(dx * dx + dy * dy);
++  
++  // Max distance from center to corner is roughly 70.7
++  // Let's say volume is 1 at center and 0 at distance 50 (radius of "hearing")
++  const maxDist = 50;
++  // Volume drops off linearly
++  const volume = Math.max(0, 1 - (distance / maxDist));
++  // Optional: add some curve, e.g., square it for more rapid dropoff
++  return volume;
++};
++
++// Initial nodes
++const initialNodesData = [
++  {
++    id: 'rain',
++    label: 'Rain',
++    x: 35,
++    y: 30,
++    color: 'blue-500',
++    src: 'https://assets.mixkit.co/sfx/preview/mixkit-light-rain-loop-1605.mp3'
++  },
++  {
++    id: 'forest',
++    label: 'Forest',
++    x: 65,
++    y: 60,
++    color: 'emerald-500',
++    src: 'https://assets.mixkit.co/sfx/preview/mixkit-forest-birds-ambience-1210.mp3'
++  },
++  {
++    id: 'cafe',
++    label: 'Cafe',
++    x: 60,
++    y: 25,
++    color: 'amber-500',
++    src: 'https://assets.mixkit.co/sfx/preview/mixkit-restaurant-crowd-talk-ambience-44.mp3'
++  },
++  {
++    id: 'static',
++    label: 'Static',
++    x: 40,
++    y: 70,
++    color: 'slate-400',
++    src: 'https://assets.mixkit.co/sfx/preview/mixkit-white-noise-1208.mp3'
++  }
++];
++
++// Calculate initial volumes
++const initialNodes: SoundNode[] = initialNodesData.map(node => ({
++  ...node,
++  volume: calculateVolume(node.x, node.y)
++}));
++
++export const SoundProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
++  const [nodes, setNodes] = useState<SoundNode[]>(initialNodes);
++  const [isPlaying, setIsPlaying] = useState(false);
++  const [masterVolume, setMasterVolume] = useState(0.75);
++  const audioElementsRef = useRef<{ [id: string]: HTMLAudioElement }>({});
++
++  // Initialize audio elements
++  useEffect(() => {
++    // Only initialize if empty
++    if (Object.keys(audioElementsRef.current).length === 0) {
++        nodes.forEach(node => {
++          const audio = new Audio(node.src);
++          audio.loop = true;
++          // Initial volume
++          audio.volume = Math.max(0, Math.min(1, node.volume * masterVolume));
++          audioElementsRef.current[node.id] = audio;
++        });
++    }
++
++    return () => {
++       // Cleanup on unmount only if we wanted to destroy context entirely
++       // but typically providers are at root.
++    };
++  }, []); 
++
++  // Handle play/pause
++  useEffect(() => {
++    Object.values(audioElementsRef.current).forEach(audio => {
++      if (isPlaying) {
++        // Play needs user interaction first usually, but we'll assume the toggle button provides that
++        const playPromise = audio.play();
++        if (playPromise !== undefined) {
++            playPromise.catch(error => {
++                console.log("Audio play failed (likely autoplay policy):", error);
++                // We might want to revert isPlaying state if playback fails
++            });
++        }
++      } else {
++        audio.pause();
++      }
++    });
++  }, [isPlaying]);
++
++  // Handle volume updates
++  useEffect(() => {
++    nodes.forEach(node => {
++      const audio = audioElementsRef.current[node.id];
++      if (audio) {
++        // Ensure volume is valid 0-1
++        const newVol = Math.max(0, Math.min(1, node.volume * masterVolume));
++        if (isFinite(newVol)) {
++            audio.volume = newVol;
++        }
++      }
++    });
++  }, [nodes, masterVolume]);
++
++  const togglePlay = () => setIsPlaying(!isPlaying);
++
++  const updateNodePosition = (id: string, x: number, y: number) => {
++    setNodes(prevNodes => prevNodes.map(node => {
++      if (node.id === id) {
++        const newVolume = calculateVolume(x, y);
++        return { ...node, x, y, volume: newVolume };
++      }
++      return node;
++    }));
++  };
++
++  return (
++    <SoundContext.Provider value={{ nodes, isPlaying, togglePlay, updateNodePosition, masterVolume, setMasterVolume }}>
++      {children}
++    </SoundContext.Provider>
++  );
++};
++
++export const useSound = () => {
++  const context = useContext(SoundContext);
++  if (!context) {
++    throw new Error('useSound must be used within a SoundProvider');
++  }
++  return context;
++};
+\ No newline at end of file
+diff --git a/src/context/TimerContext.tsx b/src/context/TimerContext.tsx
+new file mode 100644
+index 0000000..e2d6d5e
+--- /dev/null
++++ b/src/context/TimerContext.tsx
+@@ -0,0 +1,58 @@
++import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
++
++interface TimerContextType {
++  timeLeft: number;
++  isActive: boolean;
++  startTimer: () => void;
++  pauseTimer: () => void;
++  resetTimer: () => void;
++  sessionCount: number;
++  efficiency: number;
++}
++
++const TimerContext = createContext<TimerContextType | undefined>(undefined);
++
++export const TimerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
++  const [timeLeft, setTimeLeft] = useState(25 * 60);
++  const [isActive, setIsActive] = useState(false);
++  const [sessionCount, setSessionCount] = useState(4);
++  const [efficiency, setEfficiency] = useState(94);
++
++  useEffect(() => {
++    let interval: NodeJS.Timeout | null = null;
++
++    if (isActive && timeLeft > 0) {
++      interval = setInterval(() => {
++        setTimeLeft((prevTime) => prevTime - 1);
++      }, 1000);
++    } else if (timeLeft === 0) {
++      setIsActive(false);
++      // Timer finished logic could go here
++    }
++
++    return () => {
++      if (interval) clearInterval(interval);
++    };
++  }, [isActive, timeLeft]);
++
++  const startTimer = () => setIsActive(true);
++  const pauseTimer = () => setIsActive(false);
++  const resetTimer = () => {
++    setIsActive(false);
++    setTimeLeft(25 * 60);
++  };
++
++  return (
++    <TimerContext.Provider value={{ timeLeft, isActive, startTimer, pauseTimer, resetTimer, sessionCount, efficiency }}>
++      {children}
++    </TimerContext.Provider>
++  );
++};
++
++export const useTimer = () => {
++  const context = useContext(TimerContext);
++  if (!context) {
++    throw new Error('useTimer must be used within a TimerProvider');
++  }
++  return context;
++};
+\ No newline at end of file
 diff --git a/src/index.css b/src/index.css
-index 91480ed..350ad27 100644
+index 350ad27..47cb765 100644
 --- a/src/index.css
 +++ b/src/index.css
-@@ -3,52 +3,100 @@
- @custom-variant dark (&:where(.dark, .dark *));
+@@ -1,104 +1,53 @@
+ @import "tailwindcss";
  
- @theme {
--  --color-mono-bg: #1c1c1e;
--  --color-mono-surface: #2c2c2e;
--  --color-mono-border: rgba(255, 255, 255, 0.2);
--  --color-mono-text-primary: #f2f2f7;
--  --color-mono-text-secondary: #aeaeb2;
-+  --color-brut-bg: #0a0a0f;
-+  --color-brut-panel: #111116;
-+  --color-brut-border: #333333;
-+  --color-brut-accent: #eab308;
-+  --color-brut-text: #ffffff;
-+  --color-brut-text-muted: #888888;
-+  --color-brut-red: #ef4444;
-+  --color-brut-blue: #3b82f6;
+-@custom-variant dark (&:where(.dark, .dark *));
++@layer utilities {
++    .topo-bg {
++        background-color: #0f0f11;
++        background-image: 
++            linear-gradient(rgba(15, 15, 17, 0.9), rgba(15, 15, 17, 0.9)),
++            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23333' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 519.5 660.5 685.5 260.5 390 382 366.5 879.5 519.5 660.5 877.5 260.5-68.5-63.5 126.5 79.5-31 229'/%3E%3C/g%3E%3C/svg%3E");
++        background-size: cover;
++    }
++    
++    .orb-volume {
++        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
++    }
  
--  --font-serif: "Playfair Display", serif;
--  --font-sans: "Inter", sans-serif;
-+  --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
-+}
-+
-+/* Custom Utilities */
-+@utility no-scrollbar {
-+  -ms-overflow-style: none;
-+  scrollbar-width: none;
-+  &::-webkit-scrollbar {
-+    display: none;
-+  }
-+}
-+
-+@utility brut-border {
-+  border: 2px solid #333;
-+}
-+
-+@utility brut-border-r {
-+  border-right: 2px solid #333;
-+}
+-@theme {
+-  --color-brut-bg: #0a0a0f;
+-  --color-brut-panel: #111116;
+-  --color-brut-border: #333333;
+-  --color-brut-accent: #eab308;
+-  --color-brut-text: #ffffff;
+-  --color-brut-text-muted: #888888;
+-  --color-brut-red: #ef4444;
+-  --color-brut-blue: #3b82f6;
++    input[type=range] {
++        -webkit-appearance: none; 
++        background: transparent; 
++    }
  
--  --background-image-soft-gradient: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
-+@utility brut-border-b {
-+  border-bottom: 2px solid #333;
+-  --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
+-}
+-
+-/* Custom Utilities */
+-@utility no-scrollbar {
+-  -ms-overflow-style: none;
+-  scrollbar-width: none;
+-  &::-webkit-scrollbar {
+-    display: none;
+-  }
+-}
+-
+-@utility brut-border {
+-  border: 2px solid #333;
+-}
+-
+-@utility brut-border-r {
+-  border-right: 2px solid #333;
+-}
+-
+-@utility brut-border-b {
+-  border-bottom: 2px solid #333;
+-}
++    input[type=range]::-webkit-slider-thumb {
++        -webkit-appearance: none;
++        height: 12px;
++        width: 12px;
++        background: #f59e0b;
++        cursor: pointer;
++        border-radius: 0; 
++        margin-top: -5px;
++    }
+ 
+-@utility brut-border-l {
+-  border-left: 2px solid #333;
+-}
++    input[type=range]::-webkit-slider-runnable-track {
++        width: 100%;
++        height: 2px;
++        cursor: pointer;
++        background: #3f3f46;
++    }
+ 
+-@utility brut-border-t {
+-  border-top: 2px solid #333;
+-}
++    .custom-scrollbar::-webkit-scrollbar {
++        width: 4px;
++    }
+ 
+-@utility connector-line {
+-  stroke-dasharray: 8, 8;
+-  stroke-width: 2px;
+-}
++    .custom-scrollbar::-webkit-scrollbar-track {
++        background: #18181b; 
++    }
+ 
+-@utility drag-thread {
+-  stroke-dasharray: 10, 10;
+-  stroke-width: 4px;
+-  animation: flow 20s linear infinite;
+-}
+-
+-@keyframes flow {
+-  from { stroke-dashoffset: 200; }
+-  to { stroke-dashoffset: 0; }
+-}
+-
+-/* Tiptap Editor Styles */
+-.tiptap-editor p {
+-  margin-bottom: 1em;
+-  line-height: 1.4;
+-  color: #d4d4d4;
+-  font-weight: 400;
+-  font-size: 1.1rem;
+-}
+-
+-.tiptap-editor h2 {
+-  font-weight: 800;
+-  font-size: 1.75rem;
+-  margin-top: 1.5em;
+-  margin-bottom: 0.5em;
+-  color: #fff;
+-  text-transform: uppercase;
+-  letter-spacing: -0.02em;
+-  border-bottom: 2px solid #333;
+-  padding-bottom: 0.25em;
+-}
+-
+-.tiptap-editor blockquote {
+-  border-left: 4px solid #eab308;
+-  background: #1a1a1e;
+-  padding: 1rem;
+-  font-style: italic;
+-  color: #fff;
+-  margin-bottom: 1.5em;
+-  font-weight: 500;
+-}
+-
+-/* Base Styles */
+-body {
+-  font-family: var(--font-sans);
+-  background-color: #050508;
+-  color: var(--color-brut-text);
+-  @apply h-screen w-full overflow-hidden flex relative antialiased selection:bg-yellow-500 selection:text-black;
+-}
++    .custom-scrollbar::-webkit-scrollbar-thumb {
++        background: #3f3f46; 
++    }
+ 
+-#root {
+-  @apply h-full w-full;
++    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
++        background: #f59e0b; 
++    }
  }
- 
--@utility glass-panel {
--  background: rgba(30, 30, 32, 0.85);
--  backdrop-filter: blur(16px);
--  -webkit-backdrop-filter: blur(16px);
--  border: 1px solid rgba(255, 255, 255, 0.15);
--  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-+@utility brut-border-l {
-+  border-left: 2px solid #333;
+diff --git a/tailwind.config.js b/tailwind.config.js
+index 89a305e..79a5eea 100644
+--- a/tailwind.config.js
++++ b/tailwind.config.js
+@@ -1,11 +1,29 @@
+ /** @type {import('tailwindcss').Config} */
+ export default {
+-  content: [
+-    "./index.html",
+-    "./src/**/*.{js,ts,jsx,tsx}",
+-  ],
+-  theme: {
+-    extend: {},
+-  },
+-  plugins: [],
++    darkMode: "class",
++    content: [
++        "./index.html",
++        "./src/**/*.{js,ts,jsx,tsx}",
++    ],
++    theme: {
++        extend: {
++            colors: {
++                "obsidian": "#0f0f11",
++                "obsidian-light": "#18181b",
++                "obsidian-lighter": "#222226",
++                "amber-accent": "#f59e0b",
++                "amber-dim": "#78350f",
++                "charcoal": "#27272a",
++                "grid-border": "#3f3f46",
++            },
++            fontFamily: {
++                "display": ["Space Grotesk", "sans-serif"],
++                "sans": ["Space Grotesk", "sans-serif"],
++            },
++            backgroundImage: {
++                'topo-pattern': "url('data:image/svg+xml,%3Csvg width=\\'100%\\' height=\\'100%\\' viewBox=\\'0 0 800 600\\' xmlns=\\'http://www.w3.org/2000/svg\\' opacity=\\'0.05\\'%3E%3Cpath d=\\'M0 600C200 500 400 550 800 500M0 500C300 400 500 450 800 350M0 400C100 350 300 350 800 200M0 300C400 200 500 250 800 100M0 200C150 150 350 150 800 50M0 100C300 0 500 50 800 0\\' stroke=\\'white\\' stroke-width=\\'1\\' fill=\\'none\\'/%3E%3C/svg%3E')"
++            }
++        },
++    },
++    plugins: [],
  }
- 
--@utility active-node-glow {
--  position: absolute;
--  z-index: -1;
--  width: 140%;
--  height: 140%;
--  top: -20%;
--  left: -20%;
--  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%);
--  pointer-events: none;
-+@utility brut-border-t {
-+  border-top: 2px solid #333;
- }
- 
- @utility connector-line {
--  stroke-dasharray: 2, 4;
--  stroke-width: 0.8px;
-+  stroke-dasharray: 8, 8;
-+  stroke-width: 2px;
-+}
-+
-+@utility drag-thread {
-+  stroke-dasharray: 10, 10;
-+  stroke-width: 4px;
-+  animation: flow 20s linear infinite;
-+}
-+
-+@keyframes flow {
-+  from { stroke-dashoffset: 200; }
-+  to { stroke-dashoffset: 0; }
-+}
-+
-+/* Tiptap Editor Styles */
-+.tiptap-editor p {
-+  margin-bottom: 1em;
-+  line-height: 1.4;
-+  color: #d4d4d4;
-+  font-weight: 400;
-+  font-size: 1.1rem;
-+}
-+
-+.tiptap-editor h2 {
-+  font-weight: 800;
-+  font-size: 1.75rem;
-+  margin-top: 1.5em;
-+  margin-bottom: 0.5em;
-+  color: #fff;
-+  text-transform: uppercase;
-+  letter-spacing: -0.02em;
-+  border-bottom: 2px solid #333;
-+  padding-bottom: 0.25em;
- }
- 
--/* Custom scrollbar */
--::-webkit-scrollbar {
--  display: none;
-+.tiptap-editor blockquote {
-+  border-left: 4px solid #eab308;
-+  background: #1a1a1e;
-+  padding: 1rem;
-+  font-style: italic;
-+  color: #fff;
-+  margin-bottom: 1.5em;
-+  font-weight: 500;
- }
- 
--/* Base styles */
-+/* Base Styles */
- body {
-   font-family: var(--font-sans);
--  @apply bg-mono-bg text-mono-text-primary h-screen w-full overflow-hidden flex flex-col relative antialiased selection:bg-white selection:text-mono-bg;
--  min-height: max(884px, 100dvh);
-+  background-color: #050508;
-+  color: var(--color-brut-text);
-+  @apply h-screen w-full overflow-hidden flex relative antialiased selection:bg-yellow-500 selection:text-black;
- }
- 
- #root {
+\ No newline at end of file
