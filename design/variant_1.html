@@ -1,167 +1,259 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
+<html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Monastic Minimal Variant</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<title>AuraSpace Zen-Ethereal Workspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "mono-bg": "#1c1c1e",
-                        "mono-surface": "#2c2c2e",
-                        "mono-border": "rgba(255, 255, 255, 0.2)",
-                        "mono-text-primary": "#f2f2f7",
-                        "mono-text-secondary": "#aeaeb2",
+                        "zen-gold": "#D4AF37",
+                        "zen-teal": "#A0C1B8",
+                        "zen-cream": "#F9F7F2",
+                        "zen-text": "#4A4A4A",
+                        "glass-border": "rgba(255, 255, 255, 0.4)",
+                        "glass-bg": "rgba(255, 255, 255, 0.25)",
                     },
                     fontFamily: {
-                        serif: ["Playfair Display", "serif"],
-                        sans: ["Inter", "sans-serif"],
+                        "display": ["Playfair Display", "serif"],
+                        "serif": ["Cormorant Garamond", "serif"],
+                        "sans": ["Cormorant Garamond", "serif"],
                     },
-                    backgroundImage: {
-                        'soft-gradient': "radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
+                    boxShadow: {
+                        'soft-glow': '0 0 40px rgba(212, 175, 55, 0.15)',
+                        'pearl': 'inset 0 2px 5px rgba(255,255,255,0.8), 0 4px 10px rgba(0,0,0,0.1)',
                     }
                 },
             },
         }
     </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+<style>.zen-mesh-gradient {
+            background-color: #F9F7F2;
+            background-image: 
+                radial-gradient(at 10% 10%, hsla(170,40%,90%,1) 0, transparent 50%), 
+                radial-gradient(at 90% 10%, hsla(45,60%,92%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 50%, hsla(180,30%,95%,1) 0, transparent 50%),
+                radial-gradient(at 10% 90%, hsla(40,50%,90%,1) 0, transparent 50%),
+                radial-gradient(at 90% 90%, hsla(170,40%,88%,1) 0, transparent 50%);
+            animation: breathe-bg 15s ease-in-out infinite alternate;
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        @keyframes breathe-bg {
+            0% { background-size: 100% 100%; }
+            100% { background-size: 120% 120%; }
         }
-        .glass-panel {
-            background: rgba(30, 30, 32, 0.85);backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
         }
-        .active-node-glow {
-            position: absolute;
-            z-index: -1;
-            width: 140%;
-            height: 140%;
-            top: -20%;
-            left: -20%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%);
-            pointer-events: none;
-        }.connector-line {
-            stroke-dasharray: 2, 4;stroke-width: 0.8px;}
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 4s ease-in-out infinite;
+        }
+        .animate-float-gentle {
+            animation: float-gentle 8s ease-in-out infinite;
+        }.glass-panel-light {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(160, 193, 184, 0.15);
+        }
+        .glass-orb {
+             background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(240,240,240,0.4));
+             backdrop-filter: blur(4px);
+             border: 1px solid rgba(255,255,255,0.6);
+             box-shadow: 
+                inset 0 0 10px rgba(255,255,255,0.8),
+                0 4px 15px rgba(0,0,0,0.05);
+        }::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(160, 193, 184, 0.5);
+            border-radius: 4px;
+        }input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #F9F7F2;
+            border: 2px solid #D4AF37;
+            margin-top: -6px;
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(74, 74, 74, 0.1);
+            border-radius: 2px;
+        }
     </style>
-<style>
-        body {
-          min-height: max(884px, 100dvh);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-mono-bg text-mono-text-primary font-sans h-screen w-full overflow-hidden flex flex-col relative antialiased selection:bg-white selection:text-mono-bg">
-<header class="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-6 flex justify-between items-center bg-gradient-to-b from-mono-bg/90 to-transparent">
-<div class="flex items-center gap-3 text-mono-text-secondary">
-<span class="material-symbols-outlined text-sm opacity-70">menu_book</span>
-<div class="flex items-center gap-2 text-xs tracking-widest uppercase font-medium">
-<span class="opacity-50">Eldoria</span>
-<span class="opacity-30">/</span>
-<span class="opacity-50">Fractured Lands</span>
-<span class="opacity-30">/</span>
-<span class="text-white border-b border-white/20 pb-0.5">Whispering Woods</span>
+</head>
+<body class="bg-zen-cream text-zen-text font-serif min-h-screen overflow-hidden flex flex-col relative zen-mesh-gradient">
+<header class="flex items-center justify-between whitespace-nowrap px-8 py-6 z-50">
+<div class="flex items-center gap-4">
+<div class="size-10 text-zen-gold/80 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-sm border border-white/40 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">spa</span>
 </div>
+<h2 class="text-zen-text text-2xl font-display font-semibold tracking-wide">AuraSpace</h2>
 </div>
-<button class="w-8 h-8 flex items-center justify-center rounded-full border border-mono-border hover:bg-white/5 transition-colors text-mono-text-primary">
-<span class="material-symbols-outlined text-sm">settings</span>
+<div class="flex gap-4">
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 hover:bg-white/50 text-zen-text/70 transition-colors border border-white/40">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
 </button>
+<button class="flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/30 hover:bg-white/50 text-zen-text/70 transition-colors border border-white/40">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
 </header>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
-<path class="connector-line" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#888"></path>
-<path class="connector-line" d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#888" stroke-opacity="0.5"></path>
-<rect fill="#1c1c1e" height="18" rx="4" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" width="90" x="185" y="383"></rect>
-<text fill="#ccc" font-family="Inter" font-size="9" letter-spacing="0.5" text-anchor="middle" x="230" y="396">CORRUPTION</text>
+<main class="flex-1 relative flex flex-col items-center justify-start pt-4 pb-12 w-full max-w-6xl mx-auto px-6 gap-8">
+<section class="relative z-30 flex flex-col items-center">
+<div class="glass-panel-light rounded-full p-8 flex flex-col items-center justify-center relative group transition-all hover:shadow-soft-glow">
+<div class="relative size-56 flex items-center justify-center">
+<svg class="rotate-[-90deg] size-full" viewBox="0 0 100 100">
+<circle class="text-zen-teal/20" cx="50" cy="50" fill="none" r="46" stroke="currentColor" stroke-width="1"></circle>
+<circle class="text-zen-gold drop-shadow-[0_0_4px_rgba(212,175,55,0.3)] transition-all duration-1000" cx="50" cy="50" fill="none" r="46" stroke="currentColor" stroke-dasharray="289" stroke-dashoffset="70" stroke-linecap="round" stroke-width="2"></circle>
 </svg>
-<div class="absolute top-[220px] left-6 w-64 glass-panel rounded-sm p-5 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
-<div class="active-node-glow opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Location</span>
-<h3 class="text-white font-serif font-normal text-xl leading-tight italic">The Obsidian Spire</h3>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-6xl font-display text-zen-text font-medium tracking-tight">25:00</span>
+<span class="text-sm uppercase tracking-[0.2em] text-zen-text/60 font-serif mt-2">Mindfulness</span>
 </div>
-<span class="material-symbols-outlined text-mono-text-secondary text-base opacity-50">castle</span>
-</div>
-<div class="h-20 w-full bg-black/40 mb-4 overflow-hidden relative border border-white/5 grayscale hover:grayscale-0 transition-all duration-500">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-</div>
-<div class="border-t border-white/10 pt-3 mt-1 flex justify-between items-center">
-<span class="text-[10px] text-mono-text-secondary">Magical Focus Point</span>
-<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
-</div>
-</div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 glass-panel rounded-sm p-6 cursor-grab active:cursor-grabbing hover:border-white/40 transition-colors group z-20">
-<div class="active-node-glow opacity-100"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Territory</span>
-<h3 class="text-white font-serif font-semibold text-2xl leading-tight">Whispering Woods</h3>
-</div>
-<div class="w-6 h-6 border border-white/20 flex items-center justify-center text-white/70 rounded-full">
-<span class="material-symbols-outlined text-sm">forest</span>
+<div class="absolute -bottom-6 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+<button class="size-10 rounded-full bg-white/60 hover:bg-white text-zen-text shadow-sm flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+<button class="size-12 rounded-full bg-zen-gold hover:bg-zen-gold/90 text-white shadow-md flex items-center justify-center transition-all scale-105">
+<span class="material-symbols-outlined text-[28px] fill">play_arrow</span>
+</button>
+<button class="size-10 rounded-full bg-white/60 hover:bg-white text-zen-text shadow-sm flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-[20px]">stop</span>
+</button>
 </div>
 </div>
-<p class="text-sm font-serif italic text-mono-text-secondary mb-5 leading-relaxed border-l-2 border-white/20 pl-3">
-            "Home of the unseen fae. The trees themselves seem to shift when not observed directly."
-        </p>
-<div class="flex items-center justify-between pt-2 border-t border-white/10">
-<div class="flex -space-x-3 opacity-70 grayscale group-hover:grayscale-0 transition-all">
-<div class="w-6 h-6 rounded-full bg-gray-600 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-500 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-800 border border-mono-bg flex items-center justify-center text-[8px] text-white">+3</div>
 </div>
-<button class="text-[10px] uppercase tracking-widest text-white hover:text-white/70 transition-colors border border-white/20 px-3 py-1 rounded-full hover:bg-white/5">
-                Inspect
-            </button>
+</section>
+<section class="flex-1 w-full relative flex items-center justify-center">
+<div class="relative w-[700px] h-[700px] rounded-full glass-panel-light flex items-center justify-center shadow-2xl shadow-zen-teal/10 overflow-hidden">
+<div class="absolute inset-0 rounded-full border border-white/30"></div>
+<div class="absolute inset-4 rounded-full border border-white/20 border-dashed opacity-50"></div>
+<div class="absolute inset-[20%] rounded-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+<div class="absolute left-10 top-1/2 -translate-y-1/2 w-64 h-3/4 flex flex-col justify-center z-20 pointer-events-auto">
+<div class="bg-white/30 backdrop-blur-md rounded-2xl p-5 border border-white/40 shadow-sm h-full flex flex-col">
+<div class="flex items-center justify-between mb-4 border-b border-zen-text/10 pb-2">
+<h3 class="font-display text-lg text-zen-text">Intentions</h3>
+<button class="text-zen-gold hover:text-zen-gold/80 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto pr-1">
+<div class="group flex items-center gap-3 p-2 rounded-lg bg-white/40 border border-white/50 cursor-pointer hover:bg-white/60 transition-colors">
+<div class="size-4 rounded-full border border-zen-gold group-hover:bg-zen-gold/20 transition-colors"></div>
+<span class="text-base text-zen-text font-serif leading-tight">Reflect on Q3 goals</span>
+</div>
+<div class="group flex items-center gap-3 p-2 rounded-lg hover:bg-white/40 transition-colors cursor-pointer opacity-60">
+<div class="size-4 rounded-full bg-zen-teal/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-zen-text">check</span>
+</div>
+<span class="text-base text-zen-text line-through decoration-zen-text/30">Morning meditation</span>
+</div>
+<div class="group flex items-center gap-3 p-2 rounded-lg hover:bg-white/40 transition-colors cursor-pointer">
+<div class="size-4 rounded-full border border-zen-text/30 group-hover:border-zen-gold transition-colors"></div>
+<span class="text-base text-zen-text leading-tight">Review journal entries</span>
+</div>
+<div class="group flex items-center gap-3 p-2 rounded-lg hover:bg-white/40 transition-colors cursor-pointer">
+<div class="size-4 rounded-full border border-zen-text/30 group-hover:border-zen-gold transition-colors"></div>
+<span class="text-base text-zen-text leading-tight">Draft concept notes</span>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-48 glass-panel rounded-sm p-4 opacity-40 hover:opacity-100 transition-opacity scale-95 border-dashed border-white/20">
-<div class="flex items-center justify-between mb-2">
-<h4 class="text-slate-200 font-serif text-lg italic">Sunken Grotto</h4>
-<span class="material-symbols-outlined text-xs text-mono-text-secondary">water_drop</span>
 </div>
-<div class="h-[1px] w-full bg-white/10 mt-2 mb-2">
-<div class="h-full bg-white w-1/3"></div>
 </div>
-<p class="text-[9px] uppercase tracking-widest text-mono-text-secondary text-right">Draft</p>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+<div class="size-20 rounded-full bg-white/80 border border-zen-gold/30 flex items-center justify-center shadow-pearl animate-pulse-soft relative">
+<div class="absolute inset-0 rounded-full border border-zen-gold/20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<div class="absolute inset-0 rounded-full border border-zen-teal/20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite] delay-1000"></div>
+<span class="material-symbols-outlined text-zen-text/70 text-3xl font-light">self_improvement</span>
 </div>
+</div>
+<div class="absolute top-[30%] right-[25%] cursor-grab active:cursor-grabbing group z-30">
+<div class="flex flex-col items-center gap-2 animate-float-gentle">
+<div class="size-16 rounded-full glass-orb flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+<span class="material-symbols-outlined text-zen-teal/80 font-light">air</span>
+</div>
+<span class="text-xs font-serif italic text-zen-text/60 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Gentle Wind</span>
+</div>
+</div>
+<div class="absolute bottom-[35%] right-[35%] cursor-grab active:cursor-grabbing group z-30">
+<div class="flex flex-col items-center gap-2 animate-float-gentle" style="animation-delay: 1.5s;">
+<div class="size-14 rounded-full glass-orb flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+<span class="material-symbols-outlined text-blue-300/80 font-light">water_drop</span>
+</div>
+<span class="text-xs font-serif italic text-zen-text/60 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Stream</span>
+</div>
+</div>
+<div class="absolute top-[20%] right-[40%] cursor-grab active:cursor-grabbing group z-30">
+<div class="flex flex-col items-center gap-2 animate-float-gentle" style="animation-delay: 2.5s;">
+<div class="size-12 rounded-full glass-orb flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+<span class="material-symbols-outlined text-zen-gold/80 font-light">music_note</span>
+</div>
+<span class="text-xs font-serif italic text-zen-text/60 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Wind Chimes</span>
+</div>
+</div>
+<div class="absolute bottom-[25%] right-[15%] cursor-grab active:cursor-grabbing group z-30">
+<div class="flex flex-col items-center gap-2 animate-float-gentle" style="animation-delay: 0.5s;">
+<div class="size-10 rounded-full glass-orb flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)]">
+<span class="material-symbols-outlined text-green-700/40 font-light">flutter_dash</span>
+</div>
+<span class="text-xs font-serif italic text-zen-text/60 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">Birds</span>
+</div>
+</div>
+<div class="absolute bottom-12 text-zen-text/40 text-sm font-serif italic tracking-wide pointer-events-none">
+                    Bring sounds closer to the center to immerse yourself
+                </div>
+</div>
+</section>
 </main>
-<div class="absolute bottom-10 right-8 z-50 flex flex-col items-end gap-4 group">
-<div class="flex flex-col gap-3 items-end transition-all duration-300 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto mb-2">
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Add Node">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Search">
-<span class="material-symbols-outlined text-lg">search</span>
-</button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Zoom">
-<span class="material-symbols-outlined text-lg">center_focus_strong</span>
+<div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-xl px-4">
+<div class="glass-panel-light rounded-full h-20 px-8 flex items-center justify-between shadow-lg shadow-zen-teal/5">
+<div class="flex items-center gap-4 border-r border-zen-text/10 pr-6 mr-2 hidden sm:flex">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-zen-text/50 font-semibold mb-0.5">Theme</span>
+<button class="flex items-center gap-2 text-zen-text hover:text-zen-gold transition-colors group">
+<span class="font-display font-medium text-lg">Ethereal Morning</span>
+<span class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform text-zen-text/60">expand_more</span>
 </button>
 </div>
-<button class="w-14 h-14 bg-white text-mono-bg rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-50">
-<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">more_horiz</span>
+</div>
+<div class="flex items-center gap-6 flex-1 justify-center">
+<button class="text-zen-text/40 hover:text-zen-text transition-colors">
+<span class="material-symbols-outlined font-light">skip_previous</span>
+</button>
+<button class="size-12 rounded-full bg-zen-text text-white hover:bg-zen-gold hover:text-white flex items-center justify-center transition-all shadow-lg transform hover:scale-105">
+<span class="material-symbols-outlined text-[24px] fill">pause</span>
+</button>
+<button class="text-zen-text/40 hover:text-zen-text transition-colors">
+<span class="material-symbols-outlined font-light">skip_next</span>
 </button>
 </div>
-<div class="absolute bottom-0 w-full z-40 flex justify-center pb-4 pointer-events-none">
-<div class="flex gap-1.5 pointer-events-auto glass-panel px-3 py-1.5 rounded-full border border-white/10">
-<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
+<div class="flex items-center gap-3 pl-6 border-l border-zen-text/10 ml-2">
+<button class="text-zen-text/50 hover:text-zen-text transition-colors">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+<div class="w-24 group">
+<input class="w-full h-1 bg-zen-text/10 rounded-lg appearance-none cursor-pointer accent-zen-gold" max="100" min="0" type="range" value="60"/>
+</div>
+</div>
 </div>
 </div>
 

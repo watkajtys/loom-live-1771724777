@@ -2,214 +2,273 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Organic Flow Variant</title>
+<title>AuraSpace Modular-Dark Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#a855f7",secondary: "#0d9488","background-dark": "#0f0518", 
-                        "surface-glass": "rgba(255, 255, 255, 0.05)",
+                        "obsidian": "#0f0f11",
+                        "obsidian-light": "#18181b",
+                        "obsidian-lighter": "#222226",
+                        "amber-accent": "#f59e0b",
+                        "amber-dim": "#78350f",
+                        "charcoal": "#27272a",
+                        "grid-border": "#3f3f46",
                     },
                     fontFamily: {
-                        display: ["Space Grotesk", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"],
                     },
                     backgroundImage: {
-                        'nebula': "radial-gradient(circle at 20% 30%, #1e1b4b 0%, transparent 50%), radial-gradient(circle at 80% 70%, #0f172a 0%, transparent 50%), radial-gradient(circle at 50% 50%, #312e81 0%, #020617 100%)",
-                    },
-                    boxShadow: {
-                        'glass-glow': '0 0 20px 0 rgba(168, 85, 247, 0.15)',
-                        'inner-light': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)'
+                        'topo-pattern': "url('data:image/svg+xml,%3Csvg width=\\'100%\\' height=\\'100%\\' viewBox=\\'0 0 800 600\\' xmlns=\\'http://www.w3.org/2000/svg\\' opacity=\\'0.05\\'%3E%3Cpath d=\\'M0 600C200 500 400 550 800 500M0 500C300 400 500 450 800 350M0 400C100 350 300 350 800 200M0 300C400 200 500 250 800 100M0 200C150 150 350 150 800 50M0 100C300 0 500 50 800 0\\' stroke=\\'white\\' stroke-width=\\'1\\' fill=\\'none\\'/%3E%3C/svg%3E')"
                     }
                 },
             },
         }
     </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+<style>@keyframes topo-scroll {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .topo-bg {
+            background-color: #0f0f11;
+            background-image: 
+                linear-gradient(rgba(15, 15, 17, 0.9), rgba(15, 15, 17, 0.9)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23333' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 519.5 660.5 685.5 260.5 390 382 366.5 879.5 519.5 660.5 877.5 260.5-68.5-63.5 126.5 79.5-31 229'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
         }
-        .glass-organic {
-            background: rgba(20, 20, 40, 0.3);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        .orb-volume {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .blob-shape-1 {
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
         }
-        .blob-shape-2 {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            background: #f59e0b;
+            cursor: pointer;
+            border-radius: 0; 
+            margin-top: -5px;
         }
-        .blob-shape-3 {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: #3f3f46;
         }
-        .text-glow {
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #18181b; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b; 
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background-dark text-slate-100 font-display h-screen w-full overflow-hidden flex flex-col relative selection:bg-primary selection:text-white">
-<div class="absolute inset-0 z-0 pointer-events-none bg-nebula opacity-80">
-<div class="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/20 rounded-full blur-3xl mix-blend-screen animate-pulse duration-[10000ms]"></div>
-<div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-3xl mix-blend-screen"></div>
+</head>
+<body class="bg-obsidian text-slate-300 font-display min-h-screen overflow-hidden flex flex-col topo-bg">
+<header class="h-16 border-b border-grid-border flex items-center justify-between px-6 bg-obsidian-light/50 backdrop-blur-sm z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-amber-accent/10 border border-amber-accent flex items-center justify-center">
+<span class="material-symbols-outlined text-amber-accent text-[20px]">graphic_eq</span>
 </div>
-<header class="absolute top-6 left-6 z-50">
-<div class="relative w-24 h-24 glass-organic rounded-full flex items-center justify-center group cursor-pointer hover:w-64 transition-all duration-500 ease-out overflow-hidden shadow-glass-glow">
-<div class="absolute z-10 flex flex-col items-center justify-center">
-<span class="material-symbols-outlined text-primary text-2xl drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">forest</span>
-<span class="text-[10px] text-white/80 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Current</span>
+<div class="flex flex-col">
+<h1 class="text-white font-bold tracking-tight text-lg leading-none">AuraSpace</h1>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">Modular OS v3.0</span>
 </div>
-<div class="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 bg-black/40">
-<div class="flex flex-col items-center gap-1 scale-75 opacity-60">
-<span class="material-symbols-outlined text-slate-300">public</span>
-<span class="text-[8px] uppercase tracking-wider">Eldoria</span>
 </div>
-<div class="h-[1px] w-8 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-<div class="flex flex-col items-center gap-1 scale-90 opacity-80">
-<span class="material-symbols-outlined text-slate-300">terrain</span>
-<span class="text-[8px] uppercase tracking-wider">Fractured</span>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-2 px-3 py-1.5 bg-obsidian-lighter border border-grid-border rounded-sm">
+<span class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-mono text-slate-400">SYS.ONLINE</span>
 </div>
-<div class="h-[1px] w-8 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-<div class="w-8"></div>
+<div class="flex gap-2">
+<button class="size-9 hover:bg-white/5 border border-transparent hover:border-grid-border flex items-center justify-center transition-all text-slate-400 hover:text-white">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+<button class="size-9 hover:bg-white/5 border border-transparent hover:border-grid-border flex items-center justify-center transition-all text-slate-400 hover:text-white">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
 </div>
-<div class="absolute inset-0 border-2 border-transparent border-t-primary/50 border-r-teal-500/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
 </div>
 </header>
-<div class="absolute top-8 right-6 z-50">
-<button class="w-12 h-12 glass-organic rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/5 transition-colors shadow-lg">
-<span class="material-symbols-outlined">menu_open</span>
+<main class="flex-1 grid grid-cols-1 lg:grid-cols-[360px_1fr] h-[calc(100vh-64px)] overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-grid-border">
+<aside class="flex flex-col h-full bg-obsidian-light divide-y divide-grid-border overflow-hidden">
+<div class="flex-[0.4] min-h-[300px] p-6 flex flex-col relative group">
+<div class="absolute top-4 right-4 opacity-50">
+<span class="material-symbols-outlined text-grid-border">schedule</span>
+</div>
+<h3 class="text-xs uppercase tracking-widest text-slate-500 font-bold mb-6">Focus Timer</h3>
+<div class="flex-1 flex flex-col items-center justify-center">
+<div class="text-7xl font-bold text-white font-mono tracking-tighter mb-2">25:00</div>
+<div class="text-amber-accent/80 text-sm uppercase tracking-[0.2em] mb-8">Focus Cycle</div>
+<div class="flex items-center gap-4 w-full px-8">
+<button class="flex-1 h-12 border border-grid-border hover:border-amber-accent hover:bg-amber-accent/5 text-slate-400 hover:text-white transition-all flex items-center justify-center uppercase text-xs font-bold tracking-wider">
+                        Reset
+                    </button>
+<button class="flex-1 h-12 bg-amber-accent text-obsidian hover:bg-amber-400 transition-all flex items-center justify-center uppercase text-xs font-bold tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+                        Start
+                    </button>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-dashed border-grid-border flex justify-between text-xs text-slate-500 font-mono">
+<span>SESSION: 4/8</span>
+<span>EFFICIENCY: 94%</span>
+</div>
+</div>
+<div class="flex-[0.6] p-0 flex flex-col overflow-hidden bg-obsidian">
+<div class="p-6 border-b border-grid-border flex items-center justify-between bg-obsidian-light/50">
+<h3 class="text-xs uppercase tracking-widest text-slate-500 font-bold">Active Tasks</h3>
+<button class="text-amber-accent hover:text-amber-300">
+<span class="material-symbols-outlined text-[18px]">add</span>
 </button>
 </div>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0 filter drop-shadow-[0_0_8px_rgba(13,148,136,0.3)]">
-<defs>
-<linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.2"></stop>
-<stop offset="50%" style="stop-color:#0d9488;stop-opacity:0.6"></stop>
-<stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.2"></stop>
-</linearGradient>
-<filter id="glow">
-<feGaussianBlur result="coloredBlur" stdDeviation="2.5"></feGaussianBlur>
-<feMerge>
-<feMergeNode in="coloredBlur"></feMergeNode>
-<feMergeNode in="SourceGraphic"></feMergeNode>
-</feMerge>
-</filter>
-</defs>
-<path d="M190,320 Q200,400 150,450 T200,550" fill="none" filter="url(#glow)" stroke="url(#grad1)" stroke-linecap="round" stroke-width="2"></path>
-<path d="M250,580 C320,580 300,500 360,420" fill="none" filter="url(#glow)" stroke="url(#grad1)" stroke-dasharray="4 6" stroke-linecap="round" stroke-width="2"></path>
-<foreignObject height="40" width="100" x="160" y="420">
-<div class="glass-organic rounded-full px-2 py-1 text-center border-none bg-black/30">
-<span class="text-[9px] text-teal-200 font-mono tracking-widest uppercase">Corruption Flow</span>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-3">
+<div class="p-4 border-l-2 border-amber-accent bg-obsidian-light/30 hover:bg-obsidian-light/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="text-white text-sm font-medium">Finalize spatial audio logic</span>
+<span class="text-[10px] text-amber-accent font-mono border border-amber-accent/30 px-1.5 py-0.5">DEV</span>
 </div>
-</foreignObject>
+<p class="text-xs text-slate-500 line-clamp-2">Implement 3D panning for cafe ambience node based on radial distance.</p>
+</div>
+<div class="p-4 border-l-2 border-grid-border hover:border-slate-500 bg-obsidian-lighter/10 hover:bg-obsidian-light/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-slate-300 text-sm">Update user documentation</span>
+<span class="text-[10px] text-slate-600 font-mono border border-slate-700 px-1.5 py-0.5">DOCS</span>
+</div>
+</div>
+<div class="p-4 border-l-2 border-grid-border hover:border-slate-500 bg-obsidian-lighter/10 hover:bg-obsidian-light/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="text-slate-300 text-sm">Review Q3 design mockups</span>
+<span class="text-[10px] text-slate-600 font-mono border border-slate-700 px-1.5 py-0.5">DSGN</span>
+</div>
+</div>
+<div class="p-4 border-l-2 border-transparent opacity-40 hover:opacity-60 transition-opacity">
+<div class="flex justify-between items-start mb-1">
+<span class="text-slate-400 text-sm line-through">Email client timeline</span>
+<span class="material-symbols-outlined text-green-500 text-[14px]">check</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-grid-border bg-obsidian-light">
+<input class="w-full bg-obsidian border border-grid-border text-sm text-white px-3 py-2 focus:ring-1 focus:ring-amber-accent focus:border-amber-accent placeholder-slate-600 outline-none" placeholder="Add new task..." type="text"/>
+</div>
+</div>
+</aside>
+<section class="relative bg-obsidian flex flex-col h-full overflow-hidden">
+<div class="absolute top-0 left-0 w-full p-6 flex justify-between items-start pointer-events-none z-10">
+<div>
+<h2 class="text-2xl font-bold text-white mb-1">Soundscape Mixer</h2>
+<div class="flex items-center gap-2 text-amber-accent/80">
+<span class="material-symbols-outlined text-[16px]">waves</span>
+<span class="text-xs uppercase tracking-wider font-mono">Audio Engine: Active</span>
+</div>
+</div>
+<div class="pointer-events-auto bg-obsidian-light border border-grid-border flex items-center gap-4 px-4 py-2 hover:border-slate-500 transition-colors cursor-pointer">
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Preset</span>
+<span class="text-white text-sm font-medium">Deep Flow</span>
+</div>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+</div>
+</div>
+<div class="absolute inset-0 z-0 overflow-hidden">
+<div class="absolute inset-0" style="background-image: 
+                 linear-gradient(#1f1f23 1px, transparent 1px), 
+                 linear-gradient(90deg, #1f1f23 1px, transparent 1px); 
+                 background-size: 40px 40px; 
+                 opacity: 0.5;">
+</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] border border-dashed border-grid-border rounded-full opacity-30"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] border border-grid-border rounded-full opacity-50"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[200px] border border-amber-accent/20 rounded-full"></div>
+<div class="relative z-10 size-16 bg-obsidian border-2 border-amber-accent flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+<span class="material-symbols-outlined text-white text-3xl">headphones</span>
+</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] rounded-full overflow-hidden opacity-10 pointer-events-none">
+<div class="w-1/2 h-1/2 bg-gradient-to-br from-transparent to-amber-accent absolute top-0 left-0 origin-bottom-right animate-[spin_4s_linear_infinite]"></div>
+</div>
+</div>
+<div class="absolute top-[30%] left-[35%] group cursor-grab active:cursor-grabbing">
+<div class="relative flex flex-col items-center">
+<div class="size-3 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.8)] z-20 transition-transform group-hover:scale-150"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 border border-blue-500/30 rounded-full bg-blue-500/5 group-hover:bg-blue-500/10 transition-colors"></div>
+<div class="absolute -top-8 bg-obsidian border border-grid-border px-2 py-1 text-[10px] font-mono text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-30">
+                        VOL: 42%
+                    </div>
+<span class="absolute top-8 text-[10px] uppercase tracking-widest text-blue-400/70 font-bold mt-1 pointer-events-none">Rain</span>
+</div>
+<svg class="absolute top-1.5 left-1.5 w-[500px] h-[500px] pointer-events-none overflow-visible opacity-0 group-hover:opacity-20 transition-opacity z-0" style="transform: translate(-50%, -50%); pointer-events: none;">
 </svg>
-<div class="absolute top-[200px] left-8 w-56 h-56 glass-organic blob-shape-1 p-6 cursor-grab active:cursor-grabbing hover:border-primary/50 transition-all group flex flex-col items-center justify-center text-center shadow-glass-glow bg-gradient-to-br from-purple-900/20 to-transparent">
-<div class="absolute inset-0 rounded-[inherit] overflow-hidden -z-10 opacity-60 mix-blend-overlay">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover scale-150 group-hover:scale-125 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
 </div>
-<div class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary mb-2 shadow-inner-light">
-<span class="material-symbols-outlined text-xl">castle</span>
-</div>
-<h3 class="text-white font-bold text-lg leading-tight text-glow mb-1">Obsidian Spire</h3>
-<p class="text-[10px] text-slate-300 font-light tracking-wide uppercase">Magical Focus</p>
-<div class="mt-3 flex gap-1">
-<span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
-<span class="w-2 h-2 rounded-full bg-slate-600"></span>
+<div class="absolute top-[60%] left-[65%] group cursor-grab active:cursor-grabbing">
+<div class="relative flex flex-col items-center">
+<div class="size-3 bg-emerald-500 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] z-20 transition-transform group-hover:scale-150"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 border border-emerald-500/30 rounded-full bg-emerald-500/5 group-hover:bg-emerald-500/10 transition-colors"></div>
+<div class="absolute -top-8 bg-obsidian border border-grid-border px-2 py-1 text-[10px] font-mono text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-30">
+                        VOL: 65%
+                    </div>
+<span class="absolute top-8 text-[10px] uppercase tracking-widest text-emerald-400/70 font-bold mt-1 pointer-events-none">Forest</span>
 </div>
 </div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-80 min-h-[320px] glass-organic blob-shape-2 p-8 cursor-grab active:cursor-grabbing hover:border-teal-500/50 transition-all group shadow-[0_0_50px_rgba(13,148,136,0.2)] bg-gradient-to-t from-teal-900/20 to-transparent flex flex-col items-center">
-<div class="absolute top-4 right-8 w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(13,148,136,0.8)] animate-bounce">2</div>
-<div class="w-14 h-14 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-300 mb-4 group-hover:scale-110 transition-transform duration-500 border border-teal-500/30">
-<span class="material-symbols-outlined text-2xl">forest</span>
+<div class="absolute top-[25%] left-[60%] group cursor-grab active:cursor-grabbing">
+<div class="relative flex flex-col items-center">
+<div class="size-3 bg-amber-500 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.8)] z-20 transition-transform group-hover:scale-150"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-14 border border-amber-500/30 rounded-full bg-amber-500/5 group-hover:bg-amber-500/10 transition-colors"></div>
+<div class="absolute -top-8 bg-obsidian border border-grid-border px-2 py-1 text-[10px] font-mono text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-30">
+                        VOL: 28%
+                    </div>
+<span class="absolute top-8 text-[10px] uppercase tracking-widest text-amber-400/70 font-bold mt-1 pointer-events-none">Cafe</span>
 </div>
-<h3 class="text-white font-bold text-2xl leading-tight mb-1 text-center">Whispering Woods</h3>
-<p class="text-xs text-teal-200/80 mb-6 uppercase tracking-widest font-medium">Fae Territory</p>
-<p class="text-sm text-slate-200 text-center font-light leading-relaxed mb-6 opacity-90">
-            Home of the unseen. The trees shift when unobserved.
-        </p>
-<div class="flex items-center gap-3 w-full justify-center">
-<div class="flex -space-x-3">
-<div class="w-8 h-8 rounded-full bg-indigo-500 border-2 border-black/50 shadow-lg"></div>
-<div class="w-8 h-8 rounded-full bg-purple-500 border-2 border-black/50 shadow-lg"></div>
-<div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-black/50 flex items-center justify-center text-[10px] shadow-lg">+3</div>
 </div>
-<button class="w-8 h-8 rounded-full border border-teal-500/50 text-teal-300 flex items-center justify-center hover:bg-teal-500 hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">arrow_outward</span>
+<div class="absolute top-[70%] left-[40%] group cursor-grab active:cursor-grabbing">
+<div class="relative flex flex-col items-center">
+<div class="size-3 bg-slate-400 rounded-full shadow-[0_0_10px_rgba(148,163,184,0.8)] z-20 transition-transform group-hover:scale-150"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-8 border border-slate-400/30 rounded-full bg-slate-400/5 group-hover:bg-slate-400/10 transition-colors"></div>
+<div class="absolute -top-8 bg-obsidian border border-grid-border px-2 py-1 text-[10px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-30">
+                        VOL: 15%
+                    </div>
+<span class="absolute top-8 text-[10px] uppercase tracking-widest text-slate-400/70 font-bold mt-1 pointer-events-none">Static</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 w-full bg-obsidian-light/90 border-t border-grid-border h-20 px-8 flex items-center justify-between z-20 backdrop-blur-md">
+<div class="flex items-center gap-6">
+<button class="size-10 rounded-sm hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">skip_previous</span>
+</button>
+<button class="size-12 bg-amber-accent text-obsidian flex items-center justify-center hover:bg-amber-400 transition-colors shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+<span class="material-symbols-outlined text-[28px] fill">pause</span>
+</button>
+<button class="size-10 rounded-sm hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">skip_next</span>
 </button>
 </div>
+<div class="flex items-center gap-4 w-64 bg-obsidian px-4 py-3 border border-grid-border">
+<button class="text-slate-400 hover:text-white">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+<div class="flex-1 relative h-2 bg-slate-800">
+<div class="absolute top-0 left-0 h-full bg-amber-accent w-[75%]"></div>
+<input class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" max="100" min="0" type="range" value="75"/>
 </div>
-<div class="absolute top-[350px] left-[320px] w-40 h-40 glass-organic blob-shape-3 p-4 flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-opacity hover:scale-105 duration-300">
-<div class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center mb-2">
-<span class="material-symbols-outlined text-sm text-blue-300">water_drop</span>
-</div>
-<h4 class="text-slate-200 font-bold text-sm text-center">Sunken Grotto</h4>
-<div class="mt-2 w-16 h-1 bg-slate-700/50 rounded-full overflow-hidden">
-<div class="h-full bg-blue-500 w-1/3 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+<span class="text-xs font-mono text-amber-accent">75%</span>
 </div>
 </div>
+</section>
 </main>
-<div class="absolute bottom-28 right-6 flex flex-col items-center gap-4 z-20">
-<div class="glass-organic rounded-full p-2 flex flex-col gap-2 shadow-lg backdrop-blur-xl">
-<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
-<span class="material-symbols-outlined">add</span>
-</button>
-<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
-<span class="material-symbols-outlined">remove</span>
-</button>
-</div>
-<button class="w-14 h-14 glass-organic rounded-full flex items-center justify-center text-primary hover:text-white hover:bg-primary/50 transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] border border-primary/30">
-<span class="material-symbols-outlined">center_focus_strong</span>
-</button>
-</div>
-<div class="absolute bottom-32 left-6 z-30">
-<button class="group relative w-16 h-16 rounded-full glass-organic border border-teal-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(13,148,136,0.3)] hover:shadow-[0_0_50px_rgba(13,148,136,0.5)] hover:scale-110 transition-all duration-300">
-<div class="absolute inset-0 bg-teal-500/10 rounded-full animate-ping opacity-20"></div>
-<span class="material-symbols-outlined text-3xl text-teal-200 group-hover:text-white transition-colors">add</span>
-</button>
-</div>
-<nav class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-40">
-<div class="glass-organic rounded-full px-6 py-4 flex justify-between items-center shadow-2xl backdrop-blur-2xl border border-white/10">
-<a class="flex flex-col items-center justify-center gap-1 text-primary group relative" href="#">
-<div class="absolute -top-1 w-1 h-1 bg-primary rounded-full shadow-[0_0_8px_#a855f7]"></div>
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">grid_view</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">account_tree</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">group</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
-</a>
-</div>
-</nav>
-<div class="absolute top-6 right-20 z-20">
-<button class="w-12 h-12 glass-organic rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
-<span class="material-symbols-outlined text-xl">search</span>
-</button>
-</div>
 
 </body></html>

@@ -2,272 +2,302 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Cyber HUD Variant</title>
+<title>AuraSpace Cyber-Neon Workspace</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#00f0ff",secondary: "#bd00ff","background-dark": "#000000","surface-dark": "#0a0a0a",
-                        "grid-line": "#1a1a2e",
+                        "neon-cyan": "#00f3ff",
+                        "neon-magenta": "#ff00ff",
+                        "background-dark": "#050505",
+                        "tech-panel": "rgba(0, 243, 255, 0.03)",
+                        "tech-border": "rgba(0, 243, 255, 0.2)",
                     },
                     fontFamily: {
-                        display: ["Space Grotesk", "sans-serif"],
-                        mono: ["JetBrains Mono", "monospace"],
-                        body: ["Space Grotesk", "sans-serif"],
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"], 
                     },
-                    backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, #2a2a40 1px, transparent 1px), linear-gradient(to bottom, #2a2a40 1px, transparent 1px)",
-                    },
-                    animation: {
-                        'flow': 'flow 20s linear infinite',
-                        'pulse-glow': 'pulse-glow 3s infinite',
-                    },
-                    keyframes: {
-                        flow: {
-                            '0%': { strokeDashoffset: '100' },
-                            '100%': { strokeDashoffset: '0' },
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 5px #00f0ff, 0 0 10px #00f0ff' },
-                            '50%': { boxShadow: '0 0 2px #00f0ff, 0 0 5px #00f0ff' },
-                        }
+                    borderRadius: { "none": "0", "sm": "2px" },
+                    boxShadow: {
+                        "neon-cyan": "0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3)",
+                        "neon-magenta": "0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3)",
                     }
                 },
             },
         }
     </script>
 <style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }.cyber-panel {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #00f0ff;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2), inset 0 0 20px rgba(0, 240, 255, 0.05);
-            backdrop-filter: blur(4px);
-        }
-        .cyber-panel-secondary {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #bd00ff;
-            box-shadow: 0 0 8px rgba(189, 0, 255, 0.2), inset 0 0 20px rgba(189, 0, 255, 0.05);
-            backdrop-filter: blur(4px);
-        }
-        .infinite-grid {
-            background-size: 60px 60px;mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-            -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-        }
-        .corner-accent {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-style: solid;
-            border-color: #00f0ff;
-            border-width: 0;
-            pointer-events: none;
-        }
-        .corner-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-        .corner-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-        .corner-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-        .corner-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
-        .flowing-dash {
-            stroke-dasharray: 10, 10;
-            animation: flow 1s linear infinite;
-        }
-    </style>
-<style>
         body {
-            min-height: max(884px, 100dvh);
+            background-color: #000000;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }.tech-panel {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .tech-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 8px; height: 8px;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+        }
+        .tech-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0; width: 8px; height: 8px;
+            border-bottom: 2px solid #00f3ff;
+            border-right: 2px solid #00f3ff;
+        }@keyframes pulse-wireframe {
+            0%, 100% { box-shadow: 0 0 5px rgba(0, 243, 255, 0.4), inset 0 0 5px rgba(0, 243, 255, 0.1); border-color: rgba(0, 243, 255, 0.6); }
+            50% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.8), inset 0 0 10px rgba(0, 243, 255, 0.2); border-color: #00f3ff; }
+        }
+        @keyframes pulse-wireframe-magenta {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 0, 255, 0.4), inset 0 0 5px rgba(255, 0, 255, 0.1); border-color: rgba(255, 0, 255, 0.6); }
+            50% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.8), inset 0 0 10px rgba(255, 0, 255, 0.2); border-color: #ff00ff; }
+        }
+        .animate-wireframe-cyan {
+            animation: pulse-wireframe 3s infinite ease-in-out;
+        }
+        .animate-wireframe-magenta {
+            animation: pulse-wireframe-magenta 4s infinite ease-in-out;
+        }input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            background: #00f3ff;
+            margin-top: -5px;
+            box-shadow: 0 0 10px #00f3ff;
+            cursor: pointer;
+            border-radius: 0;}
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+        }::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f3ff; 
         }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background-dark text-slate-100 font-display h-screen w-full overflow-hidden flex flex-col relative selection:bg-primary selection:text-black">
-<div class="absolute inset-0 z-0 pointer-events-none opacity-40 infinite-grid bg-grid-pattern shadow-[inset_0_0_100px_rgba(0,0,0,1)]"></div>
-<div class="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(0,240,255,0.03),transparent_70%)]"></div>
-<header class="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent">
-<div class="flex items-center gap-0 cyber-panel rounded-none px-2 py-1 clip-path-polygon">
-<div class="flex items-center gap-2 px-2 border-r border-primary/30 h-full">
-<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+</head>
+<body class="bg-background-dark text-slate-100 font-display min-h-screen overflow-hidden flex flex-col relative">
+<header class="flex items-center justify-between border-b border-white/10 px-6 h-16 z-50 bg-black/80 backdrop-blur-md sticky top-0">
+<div class="flex items-center gap-4 w-1/4">
+<div class="size-8 text-neon-cyan flex items-center justify-center border border-neon-cyan/50">
+<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
 </div>
-<div class="flex items-center gap-1 px-3 font-mono text-[10px] tracking-widest uppercase">
-<span class="text-slate-500">SYS</span>
-<span class="text-primary">&gt;</span>
-<button class="text-slate-300 hover:text-primary transition-colors">ELDORIA</button>
-<span class="text-primary">&gt;</span>
-<button class="text-slate-300 hover:text-primary transition-colors">SEC_01</button>
-<span class="text-primary">&gt;</span>
-<span class="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">WHISPERING_WOODS</span>
+<h2 class="text-white text-lg font-bold tracking-widest uppercase">AuraSpace <span class="text-neon-magenta text-xs align-top">V.1</span></h2>
 </div>
+<div class="flex-1 flex justify-center">
+<div class="flex items-center gap-8 bg-white/5 px-8 py-2 border border-white/5">
+<div class="flex flex-col items-center">
+<span class="text-xs text-neon-cyan tracking-[0.2em] uppercase">Status</span>
+<span class="text-xs font-mono text-white">FOCUS MODE</span>
 </div>
-<button class="cyber-panel p-2 rounded-none text-primary hover:bg-primary/10 transition-colors">
-<span class="material-symbols-outlined text-lg">settings_suggest</span>
+<div class="flex items-baseline gap-1 font-mono text-4xl text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+                    24:59
+                </div>
+<div class="flex items-center gap-1">
+<button class="size-8 flex items-center justify-center border border-white/20 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-neon-cyan transition-all group">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
 </button>
+<button class="size-8 flex items-center justify-center border border-white/20 hover:border-neon-magenta hover:text-neon-magenta hover:shadow-neon-magenta transition-all">
+<span class="material-symbols-outlined text-[18px]">stop</span>
+</button>
+<button class="size-8 flex items-center justify-center border border-white/20 hover:border-white/60 transition-all">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+</button>
+</div>
+<div class="w-24 h-1 bg-white/10 relative">
+<div class="absolute left-0 top-0 h-full w-[65%] bg-neon-cyan shadow-[0_0_10px_#00f3ff]"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-4 w-1/4 justify-end">
+<button class="flex size-8 cursor-pointer items-center justify-center border border-transparent hover:border-white/20 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+<button class="flex size-8 cursor-pointer items-center justify-center border border-transparent hover:border-white/20 text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
 </header>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0 filter drop-shadow-[0_0_3px_#00f0ff]">
-<defs>
-<linearGradient id="gradientLine" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0"></stop>
-<stop offset="50%" style="stop-color:#00f0ff;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#bd00ff;stop-opacity:1"></stop>
-</linearGradient>
-</defs>
-<path class="flowing-dash" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#00f0ff" stroke-width="2"></path>
-<path d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#bd00ff" stroke-dasharray="2,4" stroke-opacity="0.8" stroke-width="2"></path>
-<g transform="translate(180, 375)">
-<rect fill="#000" height="24" stroke="#00f0ff" stroke-width="1" width="140" x="0" y="0"></rect>
-<text fill="#00f0ff" font-family="JetBrains Mono" font-size="9" font-weight="bold" letter-spacing="1px" text-anchor="middle" x="70" y="16">DATA_LINK::CORRUPT</text>
-<rect fill="#00f0ff" height="4" width="4" x="-2" y="-2"></rect>
-<rect fill="#00f0ff" height="4" width="4" x="138" y="22"></rect>
-</g>
-</svg>
-<div class="absolute top-[220px] left-6 w-64 cyber-panel-secondary p-0 group hover:shadow-[0_0_15px_rgba(189,0,255,0.4)] transition-all duration-300">
-<div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-secondary"></div>
-<div class="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-secondary"></div>
-<div class="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-secondary"></div>
-<div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-secondary"></div>
-<div class="p-4 relative bg-black/40">
-<div class="flex items-start justify-between mb-3">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 border border-secondary bg-secondary/10 flex items-center justify-center text-secondary shadow-[0_0_10px_rgba(189,0,255,0.3)]">
-<span class="material-symbols-outlined text-lg">fort</span>
+<main class="flex-1 relative flex overflow-hidden">
+<section class="flex-1 relative h-full w-full overflow-hidden" id="spatial-canvas">
+<div class="absolute inset-0 pointer-events-none" style="background-image: 
+                    linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+                    background-size: 100px 100px;
+                    opacity: 0.3;">
 </div>
-<div>
-<h3 class="text-white font-mono font-bold text-sm tracking-wider uppercase leading-tight text-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Obsidian_Spire</h3>
-<p class="text-[10px] text-secondary font-mono mt-0.5">LOC::MAGIC_FOCUS</p>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-[700px] h-[700px] border border-white/5 rounded-full border-dashed animate-[spin_60s_linear_infinite]"></div>
+<div class="absolute w-[500px] h-[500px] border border-neon-cyan/10"></div>
+<div class="absolute w-[300px] h-[300px] border border-neon-magenta/10"></div>
+<div class="absolute w-full h-[1px] bg-white/5"></div>
+<div class="absolute h-full w-[1px] bg-white/5"></div>
+</div>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+<div class="size-20 bg-black border border-neon-cyan flex items-center justify-center shadow-[0_0_30px_rgba(0,243,255,0.2)] relative">
+<span class="material-symbols-outlined text-white text-4xl z-10">headphones</span>
+<div class="absolute inset-0 border border-neon-cyan animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<div class="absolute -top-2 -left-2 w-2 h-2 border-t border-l border-neon-cyan"></div>
+<div class="absolute -bottom-2 -right-2 w-2 h-2 border-b border-r border-neon-cyan"></div>
 </div>
 </div>
-<button class="text-secondary/50 hover:text-secondary"><span class="material-symbols-outlined text-lg">drag_handle</span></button>
+<div class="absolute top-[30%] left-[35%] cursor-grab active:cursor-grabbing group">
+<div class="flex flex-col items-center gap-3">
+<div class="relative size-16 flex items-center justify-center animate-wireframe-cyan group-hover:scale-110 transition-transform duration-300" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: rgba(0, 243, 255, 0.05); border: 1px solid #00f3ff;">
+<span class="material-symbols-outlined text-neon-cyan text-2xl">water_drop</span>
+<div class="absolute top-0 w-full h-[1px] bg-neon-cyan/30"></div>
 </div>
-<div class="h-24 w-full border border-secondary/30 mb-3 overflow-hidden relative group-hover:border-secondary transition-colors">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0" data-alt="Dark gothic spire silhouette against a purple night sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-<div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
-</div>
-<div class="flex gap-2 text-[9px] font-mono uppercase tracking-widest">
-<span class="px-2 py-1 bg-secondary/20 text-secondary border border-secondary/50">Ancient</span>
-<span class="px-2 py-1 bg-red-900/40 text-red-500 border border-red-500/50">Danger_Lvl:High</span>
+<div class="flex flex-col items-center">
+<span class="text-[10px] font-mono text-neon-cyan uppercase tracking-widest">Rain.wav</span>
+<div class="w-12 h-1 bg-gray-800 mt-1"><div class="h-full w-[40%] bg-neon-cyan"></div></div>
 </div>
 </div>
 </div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 cyber-panel p-0 group transition-all z-20 hover:scale-[1.02]">
-<div class="corner-accent corner-tl"></div>
-<div class="corner-accent corner-tr"></div>
-<div class="corner-accent corner-bl"></div>
-<div class="corner-accent corner-br"></div>
-<div class="absolute -top-3 -right-3 w-6 h-6 bg-black border border-primary text-primary flex items-center justify-center text-[10px] font-mono font-bold shadow-[0_0_10px_#00f0ff] z-10">02</div>
-<div class="p-5 bg-black/60 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-full h-[1px] bg-primary/50 shadow-[0_0_10px_#00f0ff] animate-[scan_3s_ease-in-out_infinite]"></div>
-<div class="flex items-start justify-between mb-3">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 border border-primary bg-primary/10 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-<span class="material-symbols-outlined text-xl">token</span>
-</div>
-<div>
-<h3 class="text-white font-mono font-bold text-base tracking-widest uppercase leading-tight drop-shadow-md">Whispering<br/>Woods</h3>
-<p class="text-[10px] text-primary font-mono mt-1">TERRITORY::FAE</p>
+<div class="absolute top-[60%] left-[65%] cursor-grab active:cursor-grabbing group">
+<div class="flex flex-col items-center gap-3">
+<div class="relative size-14 flex items-center justify-center animate-wireframe-magenta group-hover:scale-110 transition-transform duration-300 transform rotate-45 border border-neon-magenta bg-neon-magenta/5">
+<div class="transform -rotate-45">
+<span class="material-symbols-outlined text-neon-magenta text-xl">forest</span>
 </div>
 </div>
-<button class="text-primary/50 hover:text-primary"><span class="material-symbols-outlined">drag_handle</span></button>
-</div>
-<p class="text-xs font-mono text-slate-300 mb-4 leading-relaxed border-l-2 border-primary/30 pl-3">
-                &gt; ALERT: Reality shift detected.<br/>
-                &gt; Flora exhibits quantum instability when unobserved.
-            </p>
-<div class="flex items-center justify-between mt-2 pt-3 border-t border-primary/20">
-<div class="flex -space-x-3">
-<div class="w-6 h-6 border border-primary bg-black flex items-center justify-center text-[8px] text-primary font-mono">A</div>
-<div class="w-6 h-6 border border-primary bg-black flex items-center justify-center text-[8px] text-primary font-mono">B</div>
-<div class="w-6 h-6 border border-primary bg-primary/20 flex items-center justify-center text-[8px] text-primary font-mono">+3</div>
-</div>
-<button class="text-primary text-[10px] font-mono font-bold uppercase tracking-widest hover:bg-primary hover:text-black px-2 py-1 transition-colors border border-transparent hover:border-primary">
-                    [ EXPAND_DATA ]
-                </button>
+<div class="flex flex-col items-center mt-2">
+<span class="text-[10px] font-mono text-neon-magenta uppercase tracking-widest">Forest.ogg</span>
+<div class="w-12 h-1 bg-gray-800 mt-1"><div class="h-full w-[70%] bg-neon-magenta"></div></div>
 </div>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-48 border border-slate-700 bg-black/80 p-3 opacity-60 hover:opacity-100 transition-opacity scale-90">
-<div class="flex items-center gap-2 mb-2">
-<div class="w-6 h-6 border border-slate-600 flex items-center justify-center">
-<span class="material-symbols-outlined text-xs text-slate-400">water</span>
+<div class="absolute top-[25%] left-[60%] cursor-grab active:cursor-grabbing group">
+<div class="flex flex-col items-center gap-3">
+<div class="size-12 border border-neon-cyan bg-neon-cyan/5 flex items-center justify-center animate-wireframe-cyan group-hover:scale-110 transition-transform duration-300 shadow-[0_0_10px_rgba(0,243,255,0.2)]">
+<span class="material-symbols-outlined text-neon-cyan text-lg">storefront</span>
 </div>
-<h4 class="text-slate-400 font-mono font-bold text-xs uppercase tracking-wider">Sunken_Grotto</h4>
+<div class="flex flex-col items-center">
+<span class="text-[10px] font-mono text-neon-cyan uppercase tracking-widest">Cafe.mp3</span>
+<div class="w-12 h-1 bg-gray-800 mt-1"><div class="h-full w-[20%] bg-neon-cyan"></div></div>
 </div>
-<div class="h-1 w-full bg-slate-900 overflow-hidden border border-slate-800">
-<div class="h-full bg-slate-500 w-1/3"></div>
 </div>
-<p class="text-[9px] font-mono text-slate-600 mt-1 uppercase">Loading_Assets...</p>
 </div>
+<div class="absolute top-[70%] left-[40%] cursor-grab active:cursor-grabbing group">
+<div class="flex flex-col items-center gap-3">
+<div class="relative size-16 flex items-center justify-center animate-wireframe-magenta group-hover:scale-110 transition-transform duration-300" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%); background: rgba(255, 0, 255, 0.05);">
+<div class="absolute inset-0 border-b border-neon-magenta"></div> 
+<span class="material-symbols-outlined text-neon-magenta text-2xl mt-2">waves</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-[10px] font-mono text-neon-magenta uppercase tracking-widest">Static</span>
+<div class="w-12 h-1 bg-gray-800 mt-1"><div class="h-full w-[50%] bg-neon-magenta"></div></div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-32 left-8 font-mono text-[10px] text-white/30 flex flex-col gap-1 pointer-events-none border-l border-white/10 pl-2">
+<div>PROXIMITY: 45%</div>
+<div>MASTER_GAIN: -6dB</div>
+<div>NODES_ACTIVE: 4</div>
+</div>
+</section>
+<aside class="w-80 h-full bg-black/40 border-l border-white/10 backdrop-blur-sm z-20 flex flex-col">
+<div class="p-4 border-b border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-neon-cyan text-sm">terminal</span>
+<h3 class="text-white font-mono text-sm uppercase tracking-widest">Task_Log</h3>
+</div>
+<div class="flex gap-2">
+<span class="size-2 bg-neon-cyan rounded-full animate-pulse"></span>
+</div>
+</div>
+<div class="p-4 flex flex-col gap-4 overflow-y-auto flex-1">
+<div class="group relative">
+<div class="absolute -left-1 top-0 bottom-0 w-[2px] bg-neon-cyan opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+<input class="w-full bg-black border border-white/20 px-3 py-3 text-sm font-mono text-white placeholder-slate-600 focus:outline-none focus:border-neon-cyan transition-colors" placeholder="&gt; Initialize new directive..." type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<div class="group flex items-center gap-3 p-3 bg-white/5 border border-white/5 hover:border-white/10 transition-colors cursor-pointer opacity-40">
+<span class="material-symbols-outlined text-neon-cyan text-sm">check_box</span>
+<span class="text-xs font-mono text-slate-300 line-through decoration-neon-cyan">System Architecture Review</span>
+</div>
+<div class="group flex items-center gap-3 p-3 bg-neon-cyan/5 border border-neon-cyan/50 shadow-[0_0_10px_rgba(0,243,255,0.1)] transition-colors cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-neon-cyan"></div>
+<span class="material-symbols-outlined text-neon-cyan text-sm animate-pulse">radio_button_checked</span>
+<div class="flex flex-col">
+<span class="text-xs font-mono text-white font-bold tracking-wide">Optimization Protocols</span>
+<span class="text-[9px] text-neon-cyan uppercase">Processing...</span>
+</div>
+</div>
+<div class="group flex items-center gap-3 p-3 bg-black border border-white/10 hover:border-neon-magenta/50 hover:bg-neon-magenta/5 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-600 group-hover:text-neon-magenta text-sm">check_box_outline_blank</span>
+<span class="text-xs font-mono text-slate-300 group-hover:text-white">Debug Audio Engine</span>
+</div>
+<div class="group flex items-center gap-3 p-3 bg-black border border-white/10 hover:border-neon-magenta/50 hover:bg-neon-magenta/5 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-600 group-hover:text-neon-magenta text-sm">check_box_outline_blank</span>
+<span class="text-xs font-mono text-slate-300 group-hover:text-white">Deploy to Production</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-white/10 font-mono text-[10px] text-slate-500 flex justify-between">
+<span>CPU: 12%</span>
+<span>MEM: 408MB</span>
+</div>
+</aside>
 </main>
-<div class="absolute bottom-28 right-4 flex flex-col gap-3 z-20">
-<div class="bg-black border border-primary/30 p-1 flex flex-col gap-1 shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors border border-transparent hover:border-primary/50">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-<div class="h-[1px] w-full bg-primary/20"></div>
-<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors border border-transparent hover:border-primary/50">
-<span class="material-symbols-outlined text-lg">remove</span>
-</button>
-</div>
-<button class="w-10 h-10 bg-black border border-primary text-primary hover:bg-primary hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center justify-center group">
-<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">center_focus_weak</span>
+<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 -translate-y-0 z-50 w-full max-w-3xl px-4">
+<div class="tech-panel h-16 px-6 flex items-center justify-between">
+<div class="flex items-center gap-4 border-r border-white/10 pr-6 mr-2 hidden sm:flex h-full">
+<div class="flex flex-col justify-center">
+<span class="text-[9px] uppercase tracking-widest text-neon-cyan font-bold mb-1">Loadout</span>
+<button class="flex items-center gap-2 text-white hover:text-neon-cyan transition-colors group">
+<span class="font-mono text-xs">CYBER_DEEP</span>
+<span class="material-symbols-outlined text-[14px] group-hover:rotate-180 transition-transform">expand_less</span>
 </button>
 </div>
-<div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
-<button class="group relative flex items-center justify-center h-14 pl-6 pr-8 bg-black border-2 border-primary shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] transition-all active:scale-95 text-primary overflow-hidden clip-path-polygon">
-<div class="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300"></div>
-<span class="material-symbols-outlined mr-3 text-2xl group-hover:rotate-90 transition-transform duration-500">add_circle</span>
-<div class="flex flex-col items-start">
-<span class="font-mono font-bold tracking-widest text-sm">CREATE_NODE</span>
-<span class="text-[9px] font-mono opacity-60">INIT_SEQUENCE</span>
 </div>
-<div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
-<div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
+<div class="flex items-center gap-8 flex-1 justify-center">
+<button class="text-slate-500 hover:text-neon-cyan transition-colors">
+<span class="material-symbols-outlined">skip_previous</span>
+</button>
+<button class="size-10 border border-neon-cyan bg-neon-cyan/10 text-white hover:bg-neon-cyan hover:text-black flex items-center justify-center transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)] hover:shadow-[0_0_25px_rgba(0,243,255,0.6)]">
+<span class="material-symbols-outlined text-[24px] fill">pause</span>
+</button>
+<button class="text-slate-500 hover:text-neon-cyan transition-colors">
+<span class="material-symbols-outlined">skip_next</span>
 </button>
 </div>
-<nav class="absolute bottom-0 w-full z-40 pointer-events-none">
-<div class="w-full flex justify-center pointer-events-auto">
-<div class="flex gap-8 border-t border-l border-r border-primary/50 bg-black/90 px-8 pb-8 pt-4 clip-path-polygon backdrop-blur-md shadow-[0_-5px_20px_rgba(0,0,0,0.8)] rounded-t-lg relative">
-<div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_10px_#00f0ff]"></div>
-<a class="flex flex-col items-center justify-end gap-1 text-primary group" href="#">
-<div class="relative">
-<span class="material-symbols-outlined text-[24px] group-hover:text-white transition-colors z-10 relative">grid_view</span>
-<div class="absolute inset-0 bg-primary blur-md opacity-40 group-hover:opacity-80 transition-opacity"></div>
-</div>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Canvas</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">account_tree</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">group</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Entities</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">settings_system_daydream</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Config</span>
-</a>
-</div>
-</div>
-</nav>
-<div class="absolute top-20 right-4 z-20">
-<button class="w-10 h-10 bg-black border border-primary/40 rounded-none flex items-center justify-center text-primary/70 hover:text-primary hover:border-primary hover:shadow-[0_0_10px_rgba(0,240,255,0.3)] transition-all">
-<span class="material-symbols-outlined text-xl">search</span>
+<div class="flex items-center gap-3 pl-6 border-l border-white/10 ml-2 h-full">
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
 </button>
+<div class="w-24 group relative">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-slate-800 -translate-y-1/2"></div>
+<input class="relative w-full h-1 appearance-none cursor-pointer z-10" max="100" min="0" type="range" value="75"/>
+</div>
+</div>
+</div>
 </div>
 
 </body></html>
